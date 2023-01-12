@@ -1,2 +1,2 @@
 # Metyu_Melkonyan
-repository for bcb420 for Metyu Melkonyan
+Repository for BCB420 Winter- University of Toronto-2023
