@@ -1,0 +1,57 @@
+---
+title: "Homework"
+output: html_notebook
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Ctrl+Shift+Enter*. 
+
+```{r}
+
+#Creating a 5 by 10 matrix
+
+m <- matrix(rnorm(50), byrow=T, nrow=5)
+
+#Assigning column names
+
+colnames <- c("cond1", "cond2", "cond3", "cond4", "cond5", "ctrl1", "ctrl2", "ctrl3", "ctrl4", "ctrl5")
+colnames(m) <- colnames
+
+#Assigning row names
+
+rownames <- c("gene1", "gene2", "gene3", "gene4", "gene5")
+rownames(m) <-rownames
+
+#Computing fold change   for respective genes
+
+foldchanges <- m['gene1',][1]/m['gene1',][6] + m['gene1',][2]/m['gene1',][7] + m['gene1',][3]/m['gene1',][8] + m['gene1',][4]/m['gene1',][9] + m['gene1',][5]/m['gene1',][10]
+
+#Naming fold changes for each gene
+
+names(foldchanges) <- "gene1"
+
+
+foldchanges2 <- m['gene2',][1]/m['gene2',][6] + m['gene2',][2]/m['gene2',][7] + m['gene2',][3]/m['gene2',][8] + m['gene2',][4]/m['gene2',][9] + m['gene2',][5]/m['gene2',][10]
+
+names(foldchanges2) <- "gene2"
+
+foldchanges3 <- m['gene3',][1]/m['gene3',][6] + m['gene3',][2]/m['gene3',][7] + m['gene3',][3]/m['gene3',][8] + m['gene3',][4]/m['gene3',][9] + m['gene3',][5]/m['gene3',][10]
+
+names(foldchanges3) <- "gene3"
+
+foldchanges4 <- m['gene4',][1]/m['gene4',][6] + m['gene4',][2]/m['gene4',][7] + m['gene4',][3]/m['gene4',][8] + m['gene4',][4]/m['gene4',][9] + m['gene4',][5]/m['gene4',][10]
+
+names(foldchanges4) <- "gene4"
+
+foldchanges5 <- m['gene5',][1]/m['gene5',][6] + m['gene5',][2]/m['gene5',][7] + m['gene5',][3]/m['gene5',][8] + m['gene5',][4]/m['gene5',][9] + m['gene5',][5]/m['gene5',][10]
+
+names(foldchanges5) <- "gene5"
+
+```
+
+Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Ctrl+Alt+I*.
+
+When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Ctrl+Shift+K* to preview the HTML file).
+
+The preview shows you a rendered HTML copy of the contents of the editor. Consequently, unlike *Knit*, *Preview* does not run any R code chunks. Instead, the output of the chunk when it was last run in the editor is displayed.
