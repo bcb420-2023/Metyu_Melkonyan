@@ -95,7 +95,7 @@ knitr::kable(counts_files, format = "html")
 The following query allows for the **GSE164730** expression data retrieval.
 
 ```{r}
-sfiles = GEOquery::getGEOSuppFiles('GSE164730')
+sfiles = GEOquery::getGEOSuppFiles('GSE158659')
 
 fnames = rownames(sfiles)
 ```
@@ -123,7 +123,7 @@ length(current_gpl_info$sample_id)
  ** Platform title ** `current_gpl_info$title`
  
 ```{r}
-sfiles = GEOquery::getGEOSuppFiles('GSE164730')
+sfiles = GEOquery::getGEOSuppFiles('GSE158659')
 fnames = rownames(sfiles)
 
 ```

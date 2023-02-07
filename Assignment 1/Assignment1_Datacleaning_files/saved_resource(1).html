@@ -62344,7 +62344,7 @@ x
 <h2>Oncogene expression data obtaining</h2>
 <p>The following query allows for the <strong>GSE164730</strong>
 expression data retrieval.</p>
-<pre class="r"><code class="hljs">sfiles = GEOquery::getGEOSuppFiles(<span class="hljs-string">'GSE164730'</span>)
+<pre class="r"><code class="hljs">sfiles = GEOquery::getGEOSuppFiles(<span class="hljs-string">'GSE158659'</span>)
 
 fnames = rownames(sfiles)</code></pre>
 </div>
@@ -62352,41 +62352,62 @@ fnames = rownames(sfiles)</code></pre>
 <h2>Reading the gene expression data</h2>
 <pre class="r"><code class="hljs">b2 = read.delim(fnames[<span class="hljs-number">1</span>],header =<span class="hljs-literal">TRUE</span>)
 head(b2)</code></pre>
-<pre><code class="hljs">##           gene_id        C1        C2        C3    CPT111    CPT112    CPT113
-## 1 ENSG00000198712 12056.910 14311.394 14332.117 15830.092 13876.807 11181.121
-## 2 ENSG00000198938  9227.058  8198.719  8557.925  9454.833  8721.884 10966.939
-## 3 ENSG00000198804  9158.271 10040.287 10138.212 11681.805 10681.263  9553.264
-## 4 ENSG00000198899  6727.137  8375.518  8670.796 10566.529  9635.370  8772.160
-## 5 ENSG00000198886  7101.785  8220.222  8167.339  9172.494  8538.984  7441.657
-## 6 ENSG00000212907  6208.739  7317.435  7495.459  8573.930  7312.045  6692.170
-##   shSHP2CPT111 shSHP2CPT112 shSHP2CPT113 LovaCPT111 LovaCPT112 LovaCPT113
-## 1    11475.070    10964.841    11682.147  12184.857  11726.286  12604.975
-## 2    10084.335    10082.774    10504.963  11345.026  10352.903  11038.177
-## 3     8516.424     8342.419     8537.345   8913.214   8957.092   9217.038
-## 4     8855.389     8874.896     8934.401   8861.339   8242.015   7949.716
-## 5     7126.274     7068.880     7042.088   7383.427   7029.346   7381.038
-## 6     6227.369     6506.343     6455.667   6818.437   7392.398   7933.075
-##   gene_name gene_chr gene_start gene_end gene_strand gene_length   gene_biotype
-## 1    MT-CO2       MT       7586     8269           +         684 protein_coding
-## 2    MT-CO3       MT       9207     9990           +         784 protein_coding
-## 3    MT-CO1       MT       5904     7445           +        1542 protein_coding
-## 4   MT-ATP6       MT       8527     9207           +         681 protein_coding
-## 5    MT-ND4       MT      10760    12137           +        1378 protein_coding
-## 6   MT-ND4L       MT      10470    10766           +         297 protein_coding
-##                                                                                            gene_description
-## 1                        mitochondrially encoded cytochrome c oxidase II [Source:HGNC Symbol;Acc:HGNC:7421]
-## 2                       mitochondrially encoded cytochrome c oxidase III [Source:HGNC Symbol;Acc:HGNC:7422]
-## 3                         mitochondrially encoded cytochrome c oxidase I [Source:HGNC Symbol;Acc:HGNC:7419]
-## 4                mitochondrially encoded ATP synthase membrane subunit 6 [Source:HGNC Symbol;Acc:HGNC:7414]
-## 5  mitochondrially encoded NADH:ubiquinone oxidoreductase core subunit 4 [Source:HGNC Symbol;Acc:HGNC:7459]
-## 6 mitochondrially encoded NADH:ubiquinone oxidoreductase core subunit 4L [Source:HGNC Symbol;Acc:HGNC:7460]
-##   tf_family
-## 1         -
-## 2         -
-## 3         -
-## 4         -
-## 5         -
-## 6         -</code></pre>
+<pre><code class="hljs">##                 X   SCC.1_EXO SCC.47_EXO  SCC.090_EXO    SiHa_EXO  Caski_EXO
+## 1 hsa-let-7a-2-3p     0.00000     0.0000 0.000000e+00     0.00000     0.0000
+## 2   hsa-let-7a-3p    55.67289   113.7819 1.850406e+02   384.27448   134.5216
+## 3   hsa-let-7a-5p 57203.89849 64105.5896 5.559765e+04 97574.86340 65747.4357
+## 4   hsa-let-7b-3p   177.45735   206.4932 2.149996e+02   586.22895   262.3171
+## 5   hsa-let-7b-5p 15828.49965 63309.1160 2.964439e+04 67800.60362 25616.2771
+## 6   hsa-let-7c-3p     0.00000     0.0000 8.811458e-01    16.82954     0.0000
+##     SCC.1_MV   Caski_MV  Caski_cell SCC.090_cell   SCC.1_cell    SiHa_cell
+## 1     0.0000     0.0000    5.303563       0.0000     4.279517     9.479102
+## 2   293.8018   173.3133   91.486456     157.2400   758.544322   693.027699
+## 3 99214.2136 82997.9695 3744.315244   27295.5387 20621.920750 26124.405840
+## 4   208.3322   176.4933   51.709736     142.4215    64.192749   271.734265
+## 5 34978.4456 38524.8339 5161.692367    6677.3469  2524.914811 25692.580070
+## 6     0.0000     0.0000    0.000000       0.0000     3.209637     8.425869
+##    SCC.47_cell      C4I_MV     C4I_EXO      HT.3_MV     HT.3_EXO    SW756_MV
+## 1     4.238158     0.00000     0.00000      0.00000     8.965584      0.0000
+## 2   527.953375    59.57109    92.26866     13.68354    38.103734    188.8651
+## 3 25207.957320 78177.12470 61258.69824 118403.67810 53025.828730 102283.9181
+## 4   173.159020   258.14138   315.25124    301.03790   150.173540    350.7494
+## 5 10462.800780 50516.28276 54646.11126  49336.00618 15161.924060  50305.5567
+## 6     6.054511     0.00000     0.00000      0.00000     0.000000      0.0000
+##      SW756_EXO     C33A_MV    C33A_EXO  SCC.4_MV  SCC.4_EXO      HeLa_MV
+## 1     0.000000     0.00000     0.00000     0.000     0.0000     0.000000
+## 2     5.674242    90.73153   124.40179   723.589     0.0000   171.456670
+## 3 88155.020290 43727.82450 27100.74094 32561.505 28571.4286 86842.803350
+## 4   204.272704   138.48497   109.32278   723.589   144.6655   313.798056
+## 5 43198.002670  6967.22681  4414.37859 17366.136 10777.5768 58359.968430
+## 6     5.674242    47.75344    20.73363     0.000     0.0000     4.852547
+##       HeLa_EXO SCC.154_MV SCC.154_EXO  UPCI.017_MV UPCI.017_EXO  UPCI.068_MV
+## 1      0.00000     0.0000      0.0000     4.737922       0.0000     3.356059
+## 2     35.07353   339.3595    272.8978   151.613499     198.5493   286.943083
+## 3 102517.57770 87616.4620  55159.4747 36960.528370   54376.0258 45028.249630
+## 4    390.48525   370.2104    272.8978   151.613499     225.0225   186.261299
+## 5  80491.40348 41309.3108  47245.4375 12825.554460   17366.4425 38844.710100
+## 6     11.69118     0.0000      0.0000    52.117140       0.0000     1.678030
+##   UPCI.068_EXO  SCC.47_MV      SiHa_MV   SCC.090_MV     C4I_cell    HT.3_cell
+## 1       0.0000     0.0000     0.000000     8.437335     9.034648    30.587187
+## 2     107.6478   360.5178   253.649855   748.110388   359.578985   575.330414
+## 3   83654.2832 97111.0048 61179.513410 15121.110920 17370.014000 18604.292110
+## 4     334.9042   519.9775   303.548187   151.872034    83.118760   161.675129
+## 5   67638.6862 81823.6652 47262.036930  7694.849710  4828.115824  9538.832618
+## 6       0.0000     0.0000     4.158194     1.406223     1.806930     1.456533
+##    SW756_cell    C33A_cell    SCC4_cell  HeLa_cell SCC.154_cell UPCI.017_cell
+## 1     2.07156    12.654283     5.801188     0.0000     9.056699      6.813915
+## 2   638.04047   411.264210   890.482282   731.7425   787.932854    838.111592
+## 3 13073.61496 14063.654210 21155.480530 48957.7409 13254.479670  22055.508430
+## 4    49.71744    88.579984   266.854625   517.9068    93.585894    244.165301
+## 5  1887.19113  3335.985460  8868.565395 22345.0640  3041.541571  14019.630890
+## 6   211.29912     1.581785    44.959203     0.0000    36.226798      0.000000
+##   UPCI.068_cell
+## 1      2.303118
+## 2    177.340083
+## 3  27319.585250
+## 4    186.552555
+## 5  20783.336480
+## 6      0.000000</code></pre>
 <pre class="r"><code class="hljs">gse &lt;- GEOquery::getGEO(<span class="hljs-string">"GSE164730"</span>,GSEMatrix = <span class="hljs-literal">FALSE</span>)</code></pre>
 <pre><code class="hljs">## Reading file....</code></pre>
 <pre><code class="hljs">## Parsing....</code></pre>
@@ -62462,11 +62483,11 @@ current_gpl_info$title</code></pre>
 <pre class="r"><code class="hljs">current_gpl_info$organism</code></pre>
 <pre><code class="hljs">## [1] "Homo sapiens"</code></pre>
 <pre class="r"><code class="hljs">length(current_gpl_info$series_id)</code></pre>
-<pre><code class="hljs">## [1] 9907</code></pre>
+<pre><code class="hljs">## [1] 9912</code></pre>
 <pre class="r"><code class="hljs">length(current_gpl_info$sample_id)</code></pre>
-<pre><code class="hljs">## [1] 291415</code></pre>
+<pre><code class="hljs">## [1] 291432</code></pre>
 <p>** Platform title ** <code>current_gpl_info$title</code></p>
-<pre class="r"><code class="hljs">sfiles = GEOquery::getGEOSuppFiles(<span class="hljs-string">'GSE164730'</span>)
+<pre class="r"><code class="hljs">sfiles = GEOquery::getGEOSuppFiles(<span class="hljs-string">'GSE158659'</span>)
 fnames = rownames(sfiles)</code></pre>
 <pre class="r"><code class="hljs">ca125_exp =read.delim(fnames[<span class="hljs-number">1</span>],header=<span class="hljs-literal">TRUE</span>,
 check.names = <span class="hljs-literal">FALSE</span>)</code></pre>
@@ -62475,276 +62496,275 @@ check.names = <span class="hljs-literal">FALSE</span>)</code></pre>
 <thead>
 <tr>
 <th style="text-align:left;">
-gene_id
 </th>
 <th style="text-align:right;">
-C1
+SCC-1_EXO
 </th>
 <th style="text-align:right;">
-C2
+SCC-47_EXO
 </th>
 <th style="text-align:right;">
-C3
+SCC-090_EXO
 </th>
 <th style="text-align:right;">
-CPT111
+SiHa_EXO
 </th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td style="text-align:left;">
-ENSG00000198712
+hsa-let-7a-2-3p
 </td>
 <td style="text-align:right;">
-12056.910
+0.00000
 </td>
 <td style="text-align:right;">
-14311.394
+0.000000
 </td>
 <td style="text-align:right;">
-14332.117
+0.000000e+00
 </td>
 <td style="text-align:right;">
-15830.092
+0.000000
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-ENSG00000198938
+hsa-let-7a-3p
 </td>
 <td style="text-align:right;">
-9227.058
+55.67289
 </td>
 <td style="text-align:right;">
-8198.719
+113.781943
 </td>
 <td style="text-align:right;">
-8557.925
+1.850406e+02
 </td>
 <td style="text-align:right;">
-9454.833
+384.274479
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-ENSG00000198804
+hsa-let-7a-5p
 </td>
 <td style="text-align:right;">
-9158.271
+57203.89849
 </td>
 <td style="text-align:right;">
-10040.287
+64105.589640
 </td>
 <td style="text-align:right;">
-10138.212
+5.559765e+04
 </td>
 <td style="text-align:right;">
-11681.805
+97574.863400
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-ENSG00000198899
+hsa-let-7b-3p
 </td>
 <td style="text-align:right;">
-6727.137
+177.45735
 </td>
 <td style="text-align:right;">
-8375.518
+206.493156
 </td>
 <td style="text-align:right;">
-8670.796
+2.149996e+02
 </td>
 <td style="text-align:right;">
-10566.529
+586.228949
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-ENSG00000198886
+hsa-let-7b-5p
 </td>
 <td style="text-align:right;">
-7101.785
+15828.49965
 </td>
 <td style="text-align:right;">
-8220.222
+63309.116040
 </td>
 <td style="text-align:right;">
-8167.339
+2.964439e+04
 </td>
 <td style="text-align:right;">
-9172.494
+67800.603620
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-ENSG00000212907
+hsa-let-7c-3p
 </td>
 <td style="text-align:right;">
-6208.739
+0.00000
 </td>
 <td style="text-align:right;">
-7317.435
+0.000000
 </td>
 <td style="text-align:right;">
-7495.459
+8.811458e-01
 </td>
 <td style="text-align:right;">
-8573.930
+16.829539
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-ENSG00000210082
+hsa-let-7c-5p
 </td>
 <td style="text-align:right;">
-4098.745
+6632.03349
 </td>
 <td style="text-align:right;">
-3922.324
+6692.063920
 </td>
 <td style="text-align:right;">
-4481.521
+3.383600e+03
 </td>
 <td style="text-align:right;">
-5768.144
+6863.647073
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-ENSG00000198727
+hsa-let-7d-3p
 </td>
 <td style="text-align:right;">
-3199.125
+967.31653
 </td>
 <td style="text-align:right;">
-3242.342
+1386.454049
 </td>
 <td style="text-align:right;">
-3246.391
+1.149014e+03
 </td>
 <td style="text-align:right;">
-3943.397
+1531.488068
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-ENSG00000198840
+hsa-let-7d-5p
 </td>
 <td style="text-align:right;">
-2879.174
+3636.13588
 </td>
 <td style="text-align:right;">
-2423.232
+5630.099117
 </td>
 <td style="text-align:right;">
-2545.900
+7.761132e+03
 </td>
 <td style="text-align:right;">
-2798.200
+8173.546208
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-ENSG00000198763
+hsa-let-7e-3p
 </td>
 <td style="text-align:right;">
-2582.171
+17.39778
 </td>
 <td style="text-align:right;">
-2989.549
+8.428292
 </td>
 <td style="text-align:right;">
-2974.516
+2.290979e+01
 </td>
 <td style="text-align:right;">
-3386.239
+154.270776
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-ENSG00000198786
+hsa-let-7e-5p
 </td>
 <td style="text-align:right;">
-2018.692
+7369.69933
 </td>
 <td style="text-align:right;">
-2094.869
+6814.274155
 </td>
 <td style="text-align:right;">
-2268.169
+6.098410e+03
 </td>
 <td style="text-align:right;">
-2834.301
+20989.240310
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-ENSG00000210135
+hsa-let-7f-1-3p
 </td>
 <td style="text-align:right;">
-1598.400
+80.02979
 </td>
 <td style="text-align:right;">
-1482.022
+58.998045
 </td>
 <td style="text-align:right;">
-1608.235
+5.903677e+01
 </td>
 <td style="text-align:right;">
-1768.078
+50.488618
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-ENSG00000198695
+hsa-let-7f-2-3p
 </td>
 <td style="text-align:right;">
-1302.467
+0.00000
 </td>
 <td style="text-align:right;">
-1478.189
+4.214146
 </td>
 <td style="text-align:right;">
-1752.840
+1.409833e+01
 </td>
 <td style="text-align:right;">
-2434.015
+0.000000
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-ENSG00000198888
+hsa-let-7f-5p
 </td>
 <td style="text-align:right;">
-1710.123
+90764.21486
 </td>
 <td style="text-align:right;">
-1707.007
+57990.863730
 </td>
 <td style="text-align:right;">
-1766.884
+7.704210e+04
 </td>
 <td style="text-align:right;">
-1851.273
+71360.051160
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-ENSG00000087086
+hsa-let-7g-3p
 </td>
 <td style="text-align:right;">
-2218.799
+0.00000
 </td>
 <td style="text-align:right;">
-2007.381
+0.000000
 </td>
 <td style="text-align:right;">
-1825.937
+0.000000e+00
 </td>
 <td style="text-align:right;">
-1253.227
+2.804923
 </td>
 </tr>
 </tbody>
