@@ -95,7 +95,7 @@ knitr::kable(counts_files, format = "html")
 The following query allows for the **GSE164730** expression data retrieval.
 
 ```{r}
-sfiles = GEOquery::getGEOSuppFiles('GSE158659')
+sfiles = GEOquery::getGEOSuppFiles('GSE146024')
 
 fnames = rownames(sfiles)
 ```
@@ -105,8 +105,9 @@ fnames = rownames(sfiles)
 b2 = read.delim(fnames[1],header =TRUE)
 head(b2)
 ```
+# The new part from the Assignment_Dataexpression.rmd file
 ```{r}
-gse <- GEOquery::getGEO("GSE164730",GSEMatrix = FALSE)
+gse <- GEOquery::getGEO("GSE111892",GSEMatrix = FALSE)
 knitr::kable(data.frame(head(GEOquery::Meta(gse))), format = 'html')
 ```
 
@@ -120,23 +121,26 @@ current_gpl_info$organism
 length(current_gpl_info$series_id)
 length(current_gpl_info$sample_id)
 ```
- ** Platform title ** `current_gpl_info$title`
+#Expression data retrieval
  
 ```{r}
-sfiles = GEOquery::getGEOSuppFiles('GSE158659')
+sfiles = GEOquery::getGEOSuppFiles('GSE146024')
 fnames = rownames(sfiles)
 
 ```
 
 ```{r}
-ca125_exp =read.delim(fnames[1],header=TRUE,
+PDCD1_exp =read.delim(fnames[1],header=TRUE,
 check.names = FALSE)
 ```
 
 ```{r}
-knitr::kable(ca125_exp[1:15,1:5], format = "html")
+knitr::kable(PDCD1_exp[1:15,1:5], format = "html")
 ```
 
 
-
+```{r}
+# Number of PDCD1 gene for the measurements
+dim(PDCD1_exp)
+```
 

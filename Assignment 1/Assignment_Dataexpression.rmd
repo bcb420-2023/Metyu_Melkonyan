@@ -67,7 +67,7 @@ sql <- paste("SELECT DISTINCT gse.title,gse.gse, gpl.title,",
 " gse.submission_date > '2014-01-01' AND",
 " gse.title LIKE '%Cancer%' AND", 
 " gpl.organism LIKE '%Homo sapiens%' AND",
-" gpl.technology LIKE '%high-throughput sequencing%' ",
+" gpl.technology LIKE '%High-throughput sequencing%' ",
 " ORDER BY gse.submission_date DESC",sep=" ")
 ```
 ## Result obtaining
@@ -95,7 +95,7 @@ knitr::kable(counts_files, format = "html")
 The following query allows for the **GSE164730** expression data retrieval.
 
 ```{r}
-sfiles = GEOquery::getGEOSuppFiles('GSE158659')
+sfiles = GEOquery::getGEOSuppFiles('GSE146024')
 
 fnames = rownames(sfiles)
 ```
@@ -105,9 +105,4 @@ fnames = rownames(sfiles)
 b2 = read.delim(fnames[1],header =TRUE)
 head(b2)
 ```
-
- 
-
-
-
 

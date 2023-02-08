@@ -62344,7 +62344,7 @@ x
 <h2>Oncogene expression data obtaining</h2>
 <p>The following query allows for the <strong>GSE164730</strong>
 expression data retrieval.</p>
-<pre class="r"><code class="hljs">sfiles = GEOquery::getGEOSuppFiles(<span class="hljs-string">'GSE158659'</span>)
+<pre class="r"><code class="hljs">sfiles = GEOquery::getGEOSuppFiles(<span class="hljs-string">'GSE146024'</span>)
 
 fnames = rownames(sfiles)</code></pre>
 </div>
@@ -62352,79 +62352,154 @@ fnames = rownames(sfiles)</code></pre>
 <h2>Reading the gene expression data</h2>
 <pre class="r"><code class="hljs">b2 = read.delim(fnames[<span class="hljs-number">1</span>],header =<span class="hljs-literal">TRUE</span>)
 head(b2)</code></pre>
-<pre><code class="hljs">##                 X   SCC.1_EXO SCC.47_EXO  SCC.090_EXO    SiHa_EXO  Caski_EXO
-## 1 hsa-let-7a-2-3p     0.00000     0.0000 0.000000e+00     0.00000     0.0000
-## 2   hsa-let-7a-3p    55.67289   113.7819 1.850406e+02   384.27448   134.5216
-## 3   hsa-let-7a-5p 57203.89849 64105.5896 5.559765e+04 97574.86340 65747.4357
-## 4   hsa-let-7b-3p   177.45735   206.4932 2.149996e+02   586.22895   262.3171
-## 5   hsa-let-7b-5p 15828.49965 63309.1160 2.964439e+04 67800.60362 25616.2771
-## 6   hsa-let-7c-3p     0.00000     0.0000 8.811458e-01    16.82954     0.0000
-##     SCC.1_MV   Caski_MV  Caski_cell SCC.090_cell   SCC.1_cell    SiHa_cell
-## 1     0.0000     0.0000    5.303563       0.0000     4.279517     9.479102
-## 2   293.8018   173.3133   91.486456     157.2400   758.544322   693.027699
-## 3 99214.2136 82997.9695 3744.315244   27295.5387 20621.920750 26124.405840
-## 4   208.3322   176.4933   51.709736     142.4215    64.192749   271.734265
-## 5 34978.4456 38524.8339 5161.692367    6677.3469  2524.914811 25692.580070
-## 6     0.0000     0.0000    0.000000       0.0000     3.209637     8.425869
-##    SCC.47_cell      C4I_MV     C4I_EXO      HT.3_MV     HT.3_EXO    SW756_MV
-## 1     4.238158     0.00000     0.00000      0.00000     8.965584      0.0000
-## 2   527.953375    59.57109    92.26866     13.68354    38.103734    188.8651
-## 3 25207.957320 78177.12470 61258.69824 118403.67810 53025.828730 102283.9181
-## 4   173.159020   258.14138   315.25124    301.03790   150.173540    350.7494
-## 5 10462.800780 50516.28276 54646.11126  49336.00618 15161.924060  50305.5567
-## 6     6.054511     0.00000     0.00000      0.00000     0.000000      0.0000
-##      SW756_EXO     C33A_MV    C33A_EXO  SCC.4_MV  SCC.4_EXO      HeLa_MV
-## 1     0.000000     0.00000     0.00000     0.000     0.0000     0.000000
-## 2     5.674242    90.73153   124.40179   723.589     0.0000   171.456670
-## 3 88155.020290 43727.82450 27100.74094 32561.505 28571.4286 86842.803350
-## 4   204.272704   138.48497   109.32278   723.589   144.6655   313.798056
-## 5 43198.002670  6967.22681  4414.37859 17366.136 10777.5768 58359.968430
-## 6     5.674242    47.75344    20.73363     0.000     0.0000     4.852547
-##       HeLa_EXO SCC.154_MV SCC.154_EXO  UPCI.017_MV UPCI.017_EXO  UPCI.068_MV
-## 1      0.00000     0.0000      0.0000     4.737922       0.0000     3.356059
-## 2     35.07353   339.3595    272.8978   151.613499     198.5493   286.943083
-## 3 102517.57770 87616.4620  55159.4747 36960.528370   54376.0258 45028.249630
-## 4    390.48525   370.2104    272.8978   151.613499     225.0225   186.261299
-## 5  80491.40348 41309.3108  47245.4375 12825.554460   17366.4425 38844.710100
-## 6     11.69118     0.0000      0.0000    52.117140       0.0000     1.678030
-##   UPCI.068_EXO  SCC.47_MV      SiHa_MV   SCC.090_MV     C4I_cell    HT.3_cell
-## 1       0.0000     0.0000     0.000000     8.437335     9.034648    30.587187
-## 2     107.6478   360.5178   253.649855   748.110388   359.578985   575.330414
-## 3   83654.2832 97111.0048 61179.513410 15121.110920 17370.014000 18604.292110
-## 4     334.9042   519.9775   303.548187   151.872034    83.118760   161.675129
-## 5   67638.6862 81823.6652 47262.036930  7694.849710  4828.115824  9538.832618
-## 6       0.0000     0.0000     4.158194     1.406223     1.806930     1.456533
-##    SW756_cell    C33A_cell    SCC4_cell  HeLa_cell SCC.154_cell UPCI.017_cell
-## 1     2.07156    12.654283     5.801188     0.0000     9.056699      6.813915
-## 2   638.04047   411.264210   890.482282   731.7425   787.932854    838.111592
-## 3 13073.61496 14063.654210 21155.480530 48957.7409 13254.479670  22055.508430
-## 4    49.71744    88.579984   266.854625   517.9068    93.585894    244.165301
-## 5  1887.19113  3335.985460  8868.565395 22345.0640  3041.541571  14019.630890
-## 6   211.29912     1.581785    44.959203     0.0000    36.226798      0.000000
-##   UPCI.068_cell
-## 1      2.303118
-## 2    177.340083
-## 3  27319.585250
-## 4    186.552555
-## 5  20783.336480
-## 6      0.000000</code></pre>
-<pre class="r"><code class="hljs">gse &lt;- GEOquery::getGEO(<span class="hljs-string">"GSE164730"</span>,GSEMatrix = <span class="hljs-literal">FALSE</span>)</code></pre>
+<pre><code class="hljs">##      Gene    UCD115     UCD12    UCD178      UCD4    UCD46     UCD65
+## 1    A1BG 21.325400 40.106200 20.556700 58.716900 12.29570 32.640500
+## 2    A1CF  0.000000  0.000000  0.000000  0.000000  0.00000  0.000000
+## 3     A2M  1.037050  0.000000  0.000000  0.000000  0.00000  0.610875
+## 4   A2ML1  0.267866  0.315906  0.419023  0.023402  3.46433  0.000000
+## 5 A3GALT2  0.000000  0.000000  0.000000  0.000000  0.00000  0.000000
+## 6  A4GALT  2.599630  7.230100  0.000000 13.175600 91.43950  0.000000</code></pre>
+</div>
+<div id="the-new-part-from-the-assignment_dataexpression.rmd-file" class="section level1">
+<h1>The new part from the Assignment_Dataexpression.rmd file</h1>
+<pre class="r"><code class="hljs">gse &lt;- GEOquery::getGEO(<span class="hljs-string">"GSE111892"</span>,GSEMatrix = <span class="hljs-literal">FALSE</span>)</code></pre>
 <pre><code class="hljs">## Reading file....</code></pre>
 <pre><code class="hljs">## Parsing....</code></pre>
-<pre><code class="hljs">## Found 13 entities...</code></pre>
-<pre><code class="hljs">## GPL18573 (1 of 14 entities)</code></pre>
-<pre><code class="hljs">## GSM5017832 (2 of 14 entities)</code></pre>
-<pre><code class="hljs">## GSM5017833 (3 of 14 entities)</code></pre>
-<pre><code class="hljs">## GSM5017834 (4 of 14 entities)</code></pre>
-<pre><code class="hljs">## GSM5017835 (5 of 14 entities)</code></pre>
-<pre><code class="hljs">## GSM5017836 (6 of 14 entities)</code></pre>
-<pre><code class="hljs">## GSM5017837 (7 of 14 entities)</code></pre>
-<pre><code class="hljs">## GSM5017838 (8 of 14 entities)</code></pre>
-<pre><code class="hljs">## GSM5017839 (9 of 14 entities)</code></pre>
-<pre><code class="hljs">## GSM5017840 (10 of 14 entities)</code></pre>
-<pre><code class="hljs">## GSM5017841 (11 of 14 entities)</code></pre>
-<pre><code class="hljs">## GSM5017842 (12 of 14 entities)</code></pre>
-<pre><code class="hljs">## GSM5017843 (13 of 14 entities)</code></pre>
+<pre><code class="hljs">## Found 134 entities...</code></pre>
+<pre><code class="hljs">## GPL16791 (1 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043652 (2 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043653 (3 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043654 (4 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043655 (5 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043656 (6 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043657 (7 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043658 (8 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043659 (9 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043660 (10 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043661 (11 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043662 (12 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043663 (13 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043664 (14 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043665 (15 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043666 (16 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043667 (17 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043668 (18 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043669 (19 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043670 (20 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043671 (21 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043672 (22 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043673 (23 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043674 (24 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043675 (25 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043676 (26 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043677 (27 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043678 (28 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043679 (29 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043680 (30 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043681 (31 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043682 (32 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043683 (33 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043684 (34 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043685 (35 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043686 (36 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043687 (37 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043688 (38 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043689 (39 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043690 (40 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043691 (41 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043692 (42 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043693 (43 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043694 (44 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043695 (45 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043696 (46 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043697 (47 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043698 (48 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043699 (49 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043700 (50 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043701 (51 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043702 (52 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043703 (53 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043704 (54 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043705 (55 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043706 (56 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043707 (57 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043708 (58 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043709 (59 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043710 (60 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043711 (61 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043712 (62 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043713 (63 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043714 (64 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043715 (65 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043716 (66 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043717 (67 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043718 (68 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043719 (69 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043720 (70 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043721 (71 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043722 (72 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043723 (73 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043724 (74 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043725 (75 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043726 (76 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043727 (77 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043728 (78 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043729 (79 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043730 (80 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043731 (81 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043732 (82 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043733 (83 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043734 (84 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043735 (85 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043736 (86 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043737 (87 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043738 (88 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043739 (89 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043740 (90 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043741 (91 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043742 (92 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043743 (93 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043744 (94 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043745 (95 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043746 (96 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043747 (97 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043748 (98 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043749 (99 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043750 (100 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043751 (101 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043752 (102 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043753 (103 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043754 (104 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043755 (105 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043756 (106 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043757 (107 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043758 (108 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043759 (109 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043760 (110 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043761 (111 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043762 (112 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043763 (113 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043764 (114 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043765 (115 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043766 (116 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043767 (117 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043768 (118 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043769 (119 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043770 (120 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043771 (121 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043772 (122 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043773 (123 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043774 (124 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043775 (125 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043776 (126 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043777 (127 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043778 (128 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043779 (129 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043780 (130 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043781 (131 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043782 (132 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043783 (133 of 135 entities)</code></pre>
+<pre><code class="hljs">## GSM3043784 (134 of 135 entities)</code></pre>
 <pre class="r"><code class="hljs">knitr::kable(data.frame(head(GEOquery::Meta(gse))), format = <span class="hljs-string">'html'</span>)</code></pre>
 <table>
 <thead>
@@ -62439,35 +62514,35 @@ contact_city
 contact_country
 </th>
 <th style="text-align:left;">
+contact_department
+</th>
+<th style="text-align:left;">
 contact_email
 </th>
 <th style="text-align:left;">
 contact_institute
-</th>
-<th style="text-align:left;">
-contact_name
 </th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td style="text-align:left;">
-101 Longmian Avenue
+9420 Athena Circle
 </td>
 <td style="text-align:left;">
-Nanjing
+La Jolla
 </td>
 <td style="text-align:left;">
-China
+USA
 </td>
 <td style="text-align:left;">
-<a href="mailto:weibin@njmu.ed.cn" class="email">weibin@njmu.ed.cn</a>
+Division of Vaccine Discovery
 </td>
 <td style="text-align:left;">
-Nanjing medical university
+<a href="mailto:vijay@lji.org" class="email">vijay@lji.org</a>
 </td>
 <td style="text-align:left;">
-Bin,,Wei
+La Jolla Institute for Allergy and Immunology
 </td>
 </tr>
 </tbody>
@@ -62475,300 +62550,304 @@ Bin,,Wei
 <pre class="r"><code class="hljs">current_gpl &lt;- names(GEOquery::GPLList(gse))[<span class="hljs-number">1</span>]
 current_gpl_info &lt;- GEOquery::Meta(GEOquery::getGEO(current_gpl))
 current_gpl_info$title</code></pre>
-<pre><code class="hljs">## [1] "Illumina NextSeq 500 (Homo sapiens)"</code></pre>
+<pre><code class="hljs">## [1] "Illumina HiSeq 2500 (Homo sapiens)"</code></pre>
 <pre class="r"><code class="hljs">current_gpl_info$submission_date</code></pre>
-<pre><code class="hljs">## [1] "Apr 15 2014"</code></pre>
+<pre><code class="hljs">## [1] "Mar 14 2013"</code></pre>
 <pre class="r"><code class="hljs">current_gpl_info$last_update_date</code></pre>
-<pre><code class="hljs">## [1] "Mar 26 2019"</code></pre>
+<pre><code class="hljs">## [1] "Mar 27 2019"</code></pre>
 <pre class="r"><code class="hljs">current_gpl_info$organism</code></pre>
 <pre><code class="hljs">## [1] "Homo sapiens"</code></pre>
 <pre class="r"><code class="hljs">length(current_gpl_info$series_id)</code></pre>
-<pre><code class="hljs">## [1] 9912</code></pre>
+<pre><code class="hljs">## [1] 10490</code></pre>
 <pre class="r"><code class="hljs">length(current_gpl_info$sample_id)</code></pre>
-<pre><code class="hljs">## [1] 291432</code></pre>
-<p>** Platform title ** <code>current_gpl_info$title</code></p>
-<pre class="r"><code class="hljs">sfiles = GEOquery::getGEOSuppFiles(<span class="hljs-string">'GSE158659'</span>)
+<pre><code class="hljs">## [1] 300289</code></pre>
+<p>#Expression data retrieval</p>
+<pre class="r"><code class="hljs">sfiles = GEOquery::getGEOSuppFiles(<span class="hljs-string">'GSE146024'</span>)
 fnames = rownames(sfiles)</code></pre>
-<pre class="r"><code class="hljs">ca125_exp =read.delim(fnames[<span class="hljs-number">1</span>],header=<span class="hljs-literal">TRUE</span>,
+<pre class="r"><code class="hljs">PDCD1_exp =read.delim(fnames[<span class="hljs-number">1</span>],header=<span class="hljs-literal">TRUE</span>,
 check.names = <span class="hljs-literal">FALSE</span>)</code></pre>
-<pre class="r"><code class="hljs">knitr::kable(ca125_exp[<span class="hljs-number">1</span>:<span class="hljs-number">15</span>,<span class="hljs-number">1</span>:<span class="hljs-number">5</span>], format = <span class="hljs-string">"html"</span>)</code></pre>
+<pre class="r"><code class="hljs">knitr::kable(PDCD1_exp[<span class="hljs-number">1</span>:<span class="hljs-number">15</span>,<span class="hljs-number">1</span>:<span class="hljs-number">5</span>], format = <span class="hljs-string">"html"</span>)</code></pre>
 <table>
 <thead>
 <tr>
 <th style="text-align:left;">
+Gene
 </th>
 <th style="text-align:right;">
-SCC-1_EXO
+UCD115
 </th>
 <th style="text-align:right;">
-SCC-47_EXO
+UCD12
 </th>
 <th style="text-align:right;">
-SCC-090_EXO
+UCD178
 </th>
 <th style="text-align:right;">
-SiHa_EXO
+UCD4
 </th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td style="text-align:left;">
-hsa-let-7a-2-3p
+A1BG
 </td>
 <td style="text-align:right;">
-0.00000
+21.325400
+</td>
+<td style="text-align:right;">
+40.106200
+</td>
+<td style="text-align:right;">
+20.5567000
+</td>
+<td style="text-align:right;">
+58.7169000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+A1CF
 </td>
 <td style="text-align:right;">
 0.000000
 </td>
 <td style="text-align:right;">
-0.000000e+00
-</td>
-<td style="text-align:right;">
 0.000000
 </td>
-</tr>
-<tr>
-<td style="text-align:left;">
-hsa-let-7a-3p
+<td style="text-align:right;">
+0.0000000
 </td>
 <td style="text-align:right;">
-55.67289
-</td>
-<td style="text-align:right;">
-113.781943
-</td>
-<td style="text-align:right;">
-1.850406e+02
-</td>
-<td style="text-align:right;">
-384.274479
+0.0000000
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-hsa-let-7a-5p
+A2M
 </td>
 <td style="text-align:right;">
-57203.89849
-</td>
-<td style="text-align:right;">
-64105.589640
-</td>
-<td style="text-align:right;">
-5.559765e+04
-</td>
-<td style="text-align:right;">
-97574.863400
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-hsa-let-7b-3p
-</td>
-<td style="text-align:right;">
-177.45735
-</td>
-<td style="text-align:right;">
-206.493156
-</td>
-<td style="text-align:right;">
-2.149996e+02
-</td>
-<td style="text-align:right;">
-586.228949
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-hsa-let-7b-5p
-</td>
-<td style="text-align:right;">
-15828.49965
-</td>
-<td style="text-align:right;">
-63309.116040
-</td>
-<td style="text-align:right;">
-2.964439e+04
-</td>
-<td style="text-align:right;">
-67800.603620
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-hsa-let-7c-3p
-</td>
-<td style="text-align:right;">
-0.00000
+1.037050
 </td>
 <td style="text-align:right;">
 0.000000
 </td>
 <td style="text-align:right;">
-8.811458e-01
+0.0000000
 </td>
 <td style="text-align:right;">
-16.829539
+0.0000000
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-hsa-let-7c-5p
+A2ML1
 </td>
 <td style="text-align:right;">
-6632.03349
+0.267866
 </td>
 <td style="text-align:right;">
-6692.063920
+0.315906
 </td>
 <td style="text-align:right;">
-3.383600e+03
+0.4190230
 </td>
 <td style="text-align:right;">
-6863.647073
+0.0234020
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-hsa-let-7d-3p
-</td>
-<td style="text-align:right;">
-967.31653
-</td>
-<td style="text-align:right;">
-1386.454049
-</td>
-<td style="text-align:right;">
-1.149014e+03
-</td>
-<td style="text-align:right;">
-1531.488068
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-hsa-let-7d-5p
-</td>
-<td style="text-align:right;">
-3636.13588
-</td>
-<td style="text-align:right;">
-5630.099117
-</td>
-<td style="text-align:right;">
-7.761132e+03
-</td>
-<td style="text-align:right;">
-8173.546208
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-hsa-let-7e-3p
-</td>
-<td style="text-align:right;">
-17.39778
-</td>
-<td style="text-align:right;">
-8.428292
-</td>
-<td style="text-align:right;">
-2.290979e+01
-</td>
-<td style="text-align:right;">
-154.270776
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-hsa-let-7e-5p
-</td>
-<td style="text-align:right;">
-7369.69933
-</td>
-<td style="text-align:right;">
-6814.274155
-</td>
-<td style="text-align:right;">
-6.098410e+03
-</td>
-<td style="text-align:right;">
-20989.240310
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-hsa-let-7f-1-3p
-</td>
-<td style="text-align:right;">
-80.02979
-</td>
-<td style="text-align:right;">
-58.998045
-</td>
-<td style="text-align:right;">
-5.903677e+01
-</td>
-<td style="text-align:right;">
-50.488618
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-hsa-let-7f-2-3p
-</td>
-<td style="text-align:right;">
-0.00000
-</td>
-<td style="text-align:right;">
-4.214146
-</td>
-<td style="text-align:right;">
-1.409833e+01
-</td>
-<td style="text-align:right;">
-0.000000
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-hsa-let-7f-5p
-</td>
-<td style="text-align:right;">
-90764.21486
-</td>
-<td style="text-align:right;">
-57990.863730
-</td>
-<td style="text-align:right;">
-7.704210e+04
-</td>
-<td style="text-align:right;">
-71360.051160
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-hsa-let-7g-3p
-</td>
-<td style="text-align:right;">
-0.00000
+A3GALT2
 </td>
 <td style="text-align:right;">
 0.000000
 </td>
 <td style="text-align:right;">
-0.000000e+00
+0.000000
 </td>
 <td style="text-align:right;">
-2.804923
+0.0000000
+</td>
+<td style="text-align:right;">
+0.0000000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+A4GALT
+</td>
+<td style="text-align:right;">
+2.599630
+</td>
+<td style="text-align:right;">
+7.230100
+</td>
+<td style="text-align:right;">
+0.0000000
+</td>
+<td style="text-align:right;">
+13.1756000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+A4GNT
+</td>
+<td style="text-align:right;">
+0.000000
+</td>
+<td style="text-align:right;">
+0.000000
+</td>
+<td style="text-align:right;">
+0.0000000
+</td>
+<td style="text-align:right;">
+0.0000000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+AAAS
+</td>
+<td style="text-align:right;">
+25.208600
+</td>
+<td style="text-align:right;">
+51.628100
+</td>
+<td style="text-align:right;">
+17.4741000
+</td>
+<td style="text-align:right;">
+31.5348000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+AACS
+</td>
+<td style="text-align:right;">
+6.451390
+</td>
+<td style="text-align:right;">
+7.978660
+</td>
+<td style="text-align:right;">
+14.0857000
+</td>
+<td style="text-align:right;">
+18.7953000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+AADAC
+</td>
+<td style="text-align:right;">
+0.000000
+</td>
+<td style="text-align:right;">
+0.000000
+</td>
+<td style="text-align:right;">
+0.0665798
+</td>
+<td style="text-align:right;">
+0.0798925
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+AADACL2
+</td>
+<td style="text-align:right;">
+0.000000
+</td>
+<td style="text-align:right;">
+0.000000
+</td>
+<td style="text-align:right;">
+0.0000000
+</td>
+<td style="text-align:right;">
+0.0000000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+AADACL3
+</td>
+<td style="text-align:right;">
+0.000000
+</td>
+<td style="text-align:right;">
+0.000000
+</td>
+<td style="text-align:right;">
+0.0000000
+</td>
+<td style="text-align:right;">
+0.0000000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+AADACL4
+</td>
+<td style="text-align:right;">
+0.000000
+</td>
+<td style="text-align:right;">
+0.000000
+</td>
+<td style="text-align:right;">
+0.0000000
+</td>
+<td style="text-align:right;">
+0.0000000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+AADAT
+</td>
+<td style="text-align:right;">
+29.432800
+</td>
+<td style="text-align:right;">
+5.919560
+</td>
+<td style="text-align:right;">
+0.0000000
+</td>
+<td style="text-align:right;">
+1.4717300
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+AAED1
+</td>
+<td style="text-align:right;">
+6.187740
+</td>
+<td style="text-align:right;">
+1.803400
+</td>
+<td style="text-align:right;">
+2.3459600
+</td>
+<td style="text-align:right;">
+1.4995000
 </td>
 </tr>
 </tbody>
 </table>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># Number of PDCD1 gene for the measurements</span>
+dim(PDCD1_exp)</code></pre>
+<pre><code class="hljs">## [1] 19810     7</code></pre>
 </div>
 
 
