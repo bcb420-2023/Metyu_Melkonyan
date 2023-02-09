@@ -52,7 +52,7 @@ Geo_tables
 
 ```{r}
 results <- DBI::dbGetQuery(con,'select * from gpl limit 5')
-knitr::kable(head(results[,1:10]), format = "html")
+knitr::kable(head(results[,1:10]), format = "pipe")
 
 ```
 
@@ -80,22 +80,16 @@ knitr::kable(rs, format = "html")
 ## Breakdown of Supplementary file from the search results
 
 ```{r}
-unlist(lapply(rs$supplementary_file,
-       FUN = function(x){x <- unlist(strsplit(x,";")) ;
-       x <- x[grep(x,pattern="txt",ignore.case = TRUE)];
-       tail(unlist(strsplit(x,"/")),n=1)})) [1:10]
-```
-## Breakdown of the supplementary file links of list above
-
-```{r}
-counts_files <- rs$supplementary_file[grep(rs$supplementary_file, pattern = "count",ignore.case = TRUE)]
+counts_files <- rs$supplementary_file[grep(rs$supplementary_file,
+                              pattern = "count",ignore.case = TRUE)]
 knitr::kable(counts_files, format = "html")
 ```
+
 ## Oncogene expression data obtaining
 The following query allows for the **GSE164730** expression data retrieval.
 
 ```{r}
-sfiles = GEOquery::getGEOSuppFiles('GSE146024')
+sfiles = GEOquery::getGEOSuppFiles('GSE131222')
 
 fnames = rownames(sfiles)
 ```

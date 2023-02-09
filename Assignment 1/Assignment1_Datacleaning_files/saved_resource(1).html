@@ -484,202 +484,94 @@ Geo_tables</code></pre>
 <li>Within 9 years</li>
 </ul>
 <pre class="r"><code class="hljs">results &lt;- DBI::dbGetQuery(con,<span class="hljs-string">'select * from gpl limit 5'</span>)
-knitr::kable(head(results[,<span class="hljs-number">1</span>:<span class="hljs-number">10</span>]), format = <span class="hljs-string">"html"</span>)</code></pre>
-<table>
+knitr::kable(head(results[,<span class="hljs-number">1</span>:<span class="hljs-number">10</span>]), format = <span class="hljs-string">"pipe"</span>)</code></pre>
+<table class="table table-condensed">
+<colgroup>
+<col width="1%">
+<col width="17%">
+<col width="3%">
+<col width="13%">
+<col width="10%">
+<col width="10%">
+<col width="10%">
+<col width="9%">
+<col width="15%">
+<col width="8%">
+</colgroup>
 <thead>
-<tr>
-<th style="text-align:right;">
-ID
-</th>
-<th style="text-align:left;">
-title
-</th>
-<th style="text-align:left;">
-gpl
-</th>
-<th style="text-align:left;">
-status
-</th>
-<th style="text-align:left;">
-submission_date
-</th>
-<th style="text-align:left;">
-last_update_date
-</th>
-<th style="text-align:left;">
-technology
-</th>
-<th style="text-align:left;">
-distribution
-</th>
-<th style="text-align:left;">
-organism
-</th>
-<th style="text-align:left;">
-manufacturer
-</th>
+<tr class="header">
+<th align="right">ID</th>
+<th align="left">title</th>
+<th align="left">gpl</th>
+<th align="left">status</th>
+<th align="left">submission_date</th>
+<th align="left">last_update_date</th>
+<th align="left">technology</th>
+<th align="left">distribution</th>
+<th align="left">organism</th>
+<th align="left">manufacturer</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:left;">
-SAGE:10:NlaIII:Homo sapiens
-</td>
-<td style="text-align:left;">
-GPL4
-</td>
-<td style="text-align:left;">
-Public on Sep 28 2000
-</td>
-<td style="text-align:left;">
-2000-09-28
-</td>
-<td style="text-align:left;">
-2012-04-18
-</td>
-<td style="text-align:left;">
-SAGE NlaIII
-</td>
-<td style="text-align:left;">
-virtual
-</td>
-<td style="text-align:left;">
-Homo sapiens
-</td>
-<td style="text-align:left;">
-NA
-</td>
+<tr class="odd">
+<td align="right">1</td>
+<td align="left">SAGE:10:NlaIII:Homo sapiens</td>
+<td align="left">GPL4</td>
+<td align="left">Public on Sep 28 2000</td>
+<td align="left">2000-09-28</td>
+<td align="left">2012-04-18</td>
+<td align="left">SAGE NlaIII</td>
+<td align="left">virtual</td>
+<td align="left">Homo sapiens</td>
+<td align="left">NA</td>
 </tr>
-<tr>
-<td style="text-align:right;">
-2
-</td>
-<td style="text-align:left;">
-Dmel.testis.1.0
-</td>
-<td style="text-align:left;">
-GPL5
-</td>
-<td style="text-align:left;">
-Public on Oct 08 2000
-</td>
-<td style="text-align:left;">
-2000-10-03
-</td>
-<td style="text-align:left;">
-2005-10-28
-</td>
-<td style="text-align:left;">
-spotted DNA/cDNA
-</td>
-<td style="text-align:left;">
-non-commercial
-</td>
-<td style="text-align:left;">
-Drosophila melanogaster
-</td>
-<td style="text-align:left;">
-NA
-</td>
+<tr class="even">
+<td align="right">2</td>
+<td align="left">Dmel.testis.1.0</td>
+<td align="left">GPL5</td>
+<td align="left">Public on Oct 08 2000</td>
+<td align="left">2000-10-03</td>
+<td align="left">2005-10-28</td>
+<td align="left">spotted DNA/cDNA</td>
+<td align="left">non-commercial</td>
+<td align="left">Drosophila melanogaster</td>
+<td align="left">NA</td>
 </tr>
-<tr>
-<td style="text-align:right;">
-3
-</td>
-<td style="text-align:left;">
-SAGE:10:Sau3A:Homo sapiens
-</td>
-<td style="text-align:left;">
-GPL6
-</td>
-<td style="text-align:left;">
-Public on Jan 04 2001
-</td>
-<td style="text-align:left;">
-2001-01-04
-</td>
-<td style="text-align:left;">
-2008-11-19
-</td>
-<td style="text-align:left;">
-SAGE Sau3A
-</td>
-<td style="text-align:left;">
-virtual
-</td>
-<td style="text-align:left;">
-Homo sapiens
-</td>
-<td style="text-align:left;">
-NA
-</td>
+<tr class="odd">
+<td align="right">3</td>
+<td align="left">SAGE:10:Sau3A:Homo sapiens</td>
+<td align="left">GPL6</td>
+<td align="left">Public on Jan 04 2001</td>
+<td align="left">2001-01-04</td>
+<td align="left">2008-11-19</td>
+<td align="left">SAGE Sau3A</td>
+<td align="left">virtual</td>
+<td align="left">Homo sapiens</td>
+<td align="left">NA</td>
 </tr>
-<tr>
-<td style="text-align:right;">
-4
-</td>
-<td style="text-align:left;">
-NHGRI_Human_8K
-</td>
-<td style="text-align:left;">
-GPL7
-</td>
-<td style="text-align:left;">
-Public on Jan 24 2001
-</td>
-<td style="text-align:left;">
-2001-01-08
-</td>
-<td style="text-align:left;">
-2005-05-26
-</td>
-<td style="text-align:left;">
-spotted DNA/cDNA
-</td>
-<td style="text-align:left;">
-non-commercial
-</td>
-<td style="text-align:left;">
-Homo sapiens
-</td>
-<td style="text-align:left;">
-NA
-</td>
+<tr class="even">
+<td align="right">4</td>
+<td align="left">NHGRI_Human_8K</td>
+<td align="left">GPL7</td>
+<td align="left">Public on Jan 24 2001</td>
+<td align="left">2001-01-08</td>
+<td align="left">2005-05-26</td>
+<td align="left">spotted DNA/cDNA</td>
+<td align="left">non-commercial</td>
+<td align="left">Homo sapiens</td>
+<td align="left">NA</td>
 </tr>
-<tr>
-<td style="text-align:right;">
-5
-</td>
-<td style="text-align:left;">
-Cerebellargenexp
-</td>
-<td style="text-align:left;">
-GPL8
-</td>
-<td style="text-align:left;">
-Public on Apr 18 2001
-</td>
-<td style="text-align:left;">
-2001-04-18
-</td>
-<td style="text-align:left;">
-2006-03-06
-</td>
-<td style="text-align:left;">
-spotted DNA/cDNA
-</td>
-<td style="text-align:left;">
-non-commercial
-</td>
-<td style="text-align:left;">
-Mus musculus
-</td>
-<td style="text-align:left;">
-NA
-</td>
+<tr class="odd">
+<td align="right">5</td>
+<td align="left">Cerebellargenexp</td>
+<td align="left">GPL8</td>
+<td align="left">Public on Apr 18 2001</td>
+<td align="left">2001-04-18</td>
+<td align="left">2006-03-06</td>
+<td align="left">spotted DNA/cDNA</td>
+<td align="left">non-commercial</td>
+<td align="left">Mus musculus</td>
+<td align="left">NA</td>
 </tr>
 </tbody>
 </table>
@@ -693,7 +585,7 @@ NA
 <span class="hljs-string">" gse.submission_date &gt; '2014-01-01' AND"</span>,
 <span class="hljs-string">" gse.title LIKE '%Cancer%' AND"</span>, 
 <span class="hljs-string">" gpl.organism LIKE '%Homo sapiens%' AND"</span>,
-<span class="hljs-string">" gpl.technology LIKE '%high-throughput sequencing%' "</span>,
+<span class="hljs-string">" gpl.technology LIKE '%High-throughput sequencing%' "</span>,
 <span class="hljs-string">" ORDER BY gse.submission_date DESC"</span>,sep=<span class="hljs-string">" "</span>)</code></pre>
 </div>
 <div id="result-obtaining" class="section level2">
@@ -58573,24 +58465,8 @@ Illumina HiSeq 2000 (Homo sapiens)
 </div>
 <div id="breakdown-of-supplementary-file-from-the-search-results" class="section level2">
 <h2>Breakdown of Supplementary file from the search results</h2>
-<pre class="r"><code class="hljs">unlist(lapply(rs$supplementary_file,
-       FUN = <span class="hljs-keyword">function</span>(x){x &lt;- unlist(strsplit(x,<span class="hljs-string">";"</span>)) ;
-       x &lt;- x[grep(x,pattern=<span class="hljs-string">"txt"</span>,ignore.case = <span class="hljs-literal">TRUE</span>)];
-       tail(unlist(strsplit(x,<span class="hljs-string">"/"</span>)),n=<span class="hljs-number">1</span>)})) [<span class="hljs-number">1</span>:<span class="hljs-number">10</span>]</code></pre>
-<pre><code class="hljs">##  [1] "GSE166697_Urinary_miRNA_counts.txt.gz"                                 
-##  [2] "GSE166417_gene_expression.txt.gz"                                      
-##  [3] "GSE165883_2019.01.15.processed.cpm.txt.gz"                             
-##  [4] "GSE165842_vst.txt.gz"                                                  
-##  [5] "GSE165452_ACY241_PRL_RNAseq_no_rRNA_Kallisto_Gene_Counts_matrix.txt.gz"
-##  [6] "GSE165247_RawCounts_Matrix_2019.txt.gz"                                
-##  [7] "GSE165115_Transcriptome_counts.txt.gz"                                 
-##  [8] "GSE165115_Transcriptome_counts.txt.gz"                                 
-##  [9] "GSE164730_expression_profile.txt.gz"                                   
-## [10] "GSE164531_NEDD9_count_table.txt.gz"</code></pre>
-</div>
-<div id="breakdown-of-the-supplementary-file-links-of-list-above" class="section level2">
-<h2>Breakdown of the supplementary file links of list above</h2>
-<pre class="r"><code class="hljs">counts_files &lt;- rs$supplementary_file[grep(rs$supplementary_file, pattern = <span class="hljs-string">"count"</span>,ignore.case = <span class="hljs-literal">TRUE</span>)]
+<pre class="r"><code class="hljs">counts_files &lt;- rs$supplementary_file[grep(rs$supplementary_file,
+                              pattern = <span class="hljs-string">"count"</span>,ignore.case = <span class="hljs-literal">TRUE</span>)]
 knitr::kable(counts_files, format = <span class="hljs-string">"html"</span>)</code></pre>
 <table>
 <thead>
@@ -62344,7 +62220,7 @@ x
 <h2>Oncogene expression data obtaining</h2>
 <p>The following query allows for the <strong>GSE164730</strong>
 expression data retrieval.</p>
-<pre class="r"><code class="hljs">sfiles = GEOquery::getGEOSuppFiles(<span class="hljs-string">'GSE146024'</span>)
+<pre class="r"><code class="hljs">sfiles = GEOquery::getGEOSuppFiles(<span class="hljs-string">'GSE131222'</span>)
 
 fnames = rownames(sfiles)</code></pre>
 </div>
@@ -62352,154 +62228,41 @@ fnames = rownames(sfiles)</code></pre>
 <h2>Reading the gene expression data</h2>
 <pre class="r"><code class="hljs">b2 = read.delim(fnames[<span class="hljs-number">1</span>],header =<span class="hljs-literal">TRUE</span>)
 head(b2)</code></pre>
-<pre><code class="hljs">##      Gene    UCD115     UCD12    UCD178      UCD4    UCD46     UCD65
-## 1    A1BG 21.325400 40.106200 20.556700 58.716900 12.29570 32.640500
-## 2    A1CF  0.000000  0.000000  0.000000  0.000000  0.00000  0.000000
-## 3     A2M  1.037050  0.000000  0.000000  0.000000  0.00000  0.610875
-## 4   A2ML1  0.267866  0.315906  0.419023  0.023402  3.46433  0.000000
-## 5 A3GALT2  0.000000  0.000000  0.000000  0.000000  0.00000  0.000000
-## 6  A4GALT  2.599630  7.230100  0.000000 13.175600 91.43950  0.000000</code></pre>
+<pre><code class="hljs">##                        gene              locus     YRE1A     YRE1B    YRE2A
+## 1                   DDX11L1   chr1:11873-29370 0.0000000 0.0000000 0.000000
+## 2                MIR1302-10   chr1:30365-30503 0.0000000 0.0000000 0.000000
+## 3                     OR4F5   chr1:69090-70008 0.0000000 0.0000000 0.000000
+## 4 LOC100132062,LOC100133331 chr1:323891-328581 0.0119596 0.0000000 0.000000
+## 5                    OR4F16 chr1:367658-368597 0.0000000 0.0000000 0.000000
+## 6                    FAM87B chr1:752750-755214 0.0935429 0.0489607 0.100927
+##      YRG1A     YRG1B     YRG2B  X X.1 X.2 X.3 X.4 X.5 X.6 X.7 X.8 X.9 X.10 X.11
+## 1 0.000000 0.0000000 0.0000000 NA  NA  NA  NA  NA  NA  NA  NA  NA  NA   NA   NA
+## 2 0.000000 0.0000000 0.0000000 NA  NA  NA  NA  NA  NA  NA  NA  NA  NA   NA   NA
+## 3 0.000000 0.0000000 0.0000000 NA  NA  NA  NA  NA  NA  NA  NA  NA  NA   NA   NA
+## 4 0.000000 0.0000000 0.0229326 NA  NA  NA  NA  NA  NA  NA  NA  NA  NA   NA   NA
+## 5 0.000000 0.0000000 0.0000000 NA  NA  NA  NA  NA  NA  NA  NA  NA  NA   NA   NA
+## 6 0.128824 0.0588732 0.1272940 NA  NA  NA  NA  NA  NA  NA  NA  NA  NA   NA   NA
+##   X.12 X.13 X.14 X.15 X.16 X.17 X.18
+## 1   NA   NA   NA   NA   NA   NA   NA
+## 2   NA   NA   NA   NA   NA   NA   NA
+## 3   NA   NA   NA   NA   NA   NA   NA
+## 4   NA   NA   NA   NA   NA   NA   NA
+## 5   NA   NA   NA   NA   NA   NA   NA
+## 6   NA   NA   NA   NA   NA   NA   NA</code></pre>
 </div>
 <div id="the-new-part-from-the-assignment_dataexpression.rmd-file" class="section level1">
 <h1>The new part from the Assignment_Dataexpression.rmd file</h1>
-<pre class="r"><code class="hljs">gse &lt;- GEOquery::getGEO(<span class="hljs-string">"GSE111892"</span>,GSEMatrix = <span class="hljs-literal">FALSE</span>)</code></pre>
+<pre class="r"><code class="hljs">gse &lt;- GEOquery::getGEO(<span class="hljs-string">"GSE131222"</span>,GSEMatrix = <span class="hljs-literal">FALSE</span>)</code></pre>
 <pre><code class="hljs">## Reading file....</code></pre>
 <pre><code class="hljs">## Parsing....</code></pre>
-<pre><code class="hljs">## Found 134 entities...</code></pre>
-<pre><code class="hljs">## GPL16791 (1 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043652 (2 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043653 (3 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043654 (4 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043655 (5 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043656 (6 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043657 (7 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043658 (8 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043659 (9 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043660 (10 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043661 (11 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043662 (12 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043663 (13 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043664 (14 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043665 (15 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043666 (16 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043667 (17 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043668 (18 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043669 (19 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043670 (20 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043671 (21 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043672 (22 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043673 (23 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043674 (24 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043675 (25 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043676 (26 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043677 (27 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043678 (28 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043679 (29 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043680 (30 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043681 (31 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043682 (32 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043683 (33 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043684 (34 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043685 (35 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043686 (36 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043687 (37 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043688 (38 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043689 (39 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043690 (40 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043691 (41 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043692 (42 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043693 (43 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043694 (44 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043695 (45 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043696 (46 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043697 (47 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043698 (48 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043699 (49 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043700 (50 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043701 (51 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043702 (52 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043703 (53 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043704 (54 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043705 (55 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043706 (56 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043707 (57 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043708 (58 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043709 (59 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043710 (60 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043711 (61 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043712 (62 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043713 (63 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043714 (64 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043715 (65 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043716 (66 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043717 (67 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043718 (68 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043719 (69 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043720 (70 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043721 (71 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043722 (72 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043723 (73 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043724 (74 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043725 (75 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043726 (76 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043727 (77 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043728 (78 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043729 (79 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043730 (80 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043731 (81 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043732 (82 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043733 (83 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043734 (84 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043735 (85 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043736 (86 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043737 (87 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043738 (88 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043739 (89 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043740 (90 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043741 (91 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043742 (92 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043743 (93 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043744 (94 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043745 (95 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043746 (96 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043747 (97 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043748 (98 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043749 (99 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043750 (100 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043751 (101 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043752 (102 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043753 (103 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043754 (104 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043755 (105 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043756 (106 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043757 (107 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043758 (108 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043759 (109 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043760 (110 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043761 (111 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043762 (112 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043763 (113 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043764 (114 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043765 (115 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043766 (116 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043767 (117 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043768 (118 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043769 (119 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043770 (120 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043771 (121 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043772 (122 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043773 (123 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043774 (124 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043775 (125 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043776 (126 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043777 (127 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043778 (128 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043779 (129 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043780 (130 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043781 (131 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043782 (132 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043783 (133 of 135 entities)</code></pre>
-<pre><code class="hljs">## GSM3043784 (134 of 135 entities)</code></pre>
+<pre><code class="hljs">## Found 7 entities...</code></pre>
+<pre><code class="hljs">## GPL16791 (1 of 8 entities)</code></pre>
+<pre><code class="hljs">## GSM3767825 (2 of 8 entities)</code></pre>
+<pre><code class="hljs">## GSM3767826 (3 of 8 entities)</code></pre>
+<pre><code class="hljs">## GSM3767827 (4 of 8 entities)</code></pre>
+<pre><code class="hljs">## GSM3767828 (5 of 8 entities)</code></pre>
+<pre><code class="hljs">## GSM3767829 (6 of 8 entities)</code></pre>
+<pre><code class="hljs">## GSM3767830 (7 of 8 entities)</code></pre>
 <pre class="r"><code class="hljs">knitr::kable(data.frame(head(GEOquery::Meta(gse))), format = <span class="hljs-string">'html'</span>)</code></pre>
 <table>
 <thead>
@@ -62527,22 +62290,22 @@ contact_institute
 <tbody>
 <tr>
 <td style="text-align:left;">
-9420 Athena Circle
+513 Parnassus Ave, HSW1321
 </td>
 <td style="text-align:left;">
-La Jolla
+San Francisco
 </td>
 <td style="text-align:left;">
 USA
 </td>
 <td style="text-align:left;">
-Division of Vaccine Discovery
+Anatomy
 </td>
 <td style="text-align:left;">
-<a href="mailto:vijay@lji.org" class="email">vijay@lji.org</a>
+<a href="mailto:rushika.perera@ucsf.edu" class="email">rushika.perera@ucsf.edu</a>
 </td>
 <td style="text-align:left;">
-La Jolla Institute for Allergy and Immunology
+UCSF
 </td>
 </tr>
 </tbody>
@@ -62558,11 +62321,11 @@ current_gpl_info$title</code></pre>
 <pre class="r"><code class="hljs">current_gpl_info$organism</code></pre>
 <pre><code class="hljs">## [1] "Homo sapiens"</code></pre>
 <pre class="r"><code class="hljs">length(current_gpl_info$series_id)</code></pre>
-<pre><code class="hljs">## [1] 10490</code></pre>
+<pre><code class="hljs">## [1] 10495</code></pre>
 <pre class="r"><code class="hljs">length(current_gpl_info$sample_id)</code></pre>
-<pre><code class="hljs">## [1] 300289</code></pre>
+<pre><code class="hljs">## [1] 300404</code></pre>
 <p>#Expression data retrieval</p>
-<pre class="r"><code class="hljs">sfiles = GEOquery::getGEOSuppFiles(<span class="hljs-string">'GSE146024'</span>)
+<pre class="r"><code class="hljs">sfiles = GEOquery::getGEOSuppFiles(<span class="hljs-string">'GSE131222'</span>)
 fnames = rownames(sfiles)</code></pre>
 <pre class="r"><code class="hljs">PDCD1_exp =read.delim(fnames[<span class="hljs-number">1</span>],header=<span class="hljs-literal">TRUE</span>,
 check.names = <span class="hljs-literal">FALSE</span>)</code></pre>
@@ -62571,49 +62334,32 @@ check.names = <span class="hljs-literal">FALSE</span>)</code></pre>
 <thead>
 <tr>
 <th style="text-align:left;">
-Gene
+gene
+</th>
+<th style="text-align:left;">
+locus
 </th>
 <th style="text-align:right;">
-UCD115
+YRE1A
 </th>
 <th style="text-align:right;">
-UCD12
+YRE1B
 </th>
 <th style="text-align:right;">
-UCD178
-</th>
-<th style="text-align:right;">
-UCD4
+YRE2A
 </th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td style="text-align:left;">
-A1BG
+DDX11L1
 </td>
-<td style="text-align:right;">
-21.325400
-</td>
-<td style="text-align:right;">
-40.106200
-</td>
-<td style="text-align:right;">
-20.5567000
-</td>
-<td style="text-align:right;">
-58.7169000
-</td>
-</tr>
-<tr>
 <td style="text-align:left;">
-A1CF
+chr1:11873-29370
 </td>
 <td style="text-align:right;">
-0.000000
-</td>
-<td style="text-align:right;">
-0.000000
+0.0000000
 </td>
 <td style="text-align:right;">
 0.0000000
@@ -62624,13 +62370,13 @@ A1CF
 </tr>
 <tr>
 <td style="text-align:left;">
-A2M
+MIR1302-10
+</td>
+<td style="text-align:left;">
+chr1:30365-30503
 </td>
 <td style="text-align:right;">
-1.037050
-</td>
-<td style="text-align:right;">
-0.000000
+0.0000000
 </td>
 <td style="text-align:right;">
 0.0000000
@@ -62641,30 +62387,13 @@ A2M
 </tr>
 <tr>
 <td style="text-align:left;">
-A2ML1
+OR4F5
 </td>
-<td style="text-align:right;">
-0.267866
-</td>
-<td style="text-align:right;">
-0.315906
-</td>
-<td style="text-align:right;">
-0.4190230
-</td>
-<td style="text-align:right;">
-0.0234020
-</td>
-</tr>
-<tr>
 <td style="text-align:left;">
-A3GALT2
+chr1:69090-70008
 </td>
 <td style="text-align:right;">
-0.000000
-</td>
-<td style="text-align:right;">
-0.000000
+0.0000000
 </td>
 <td style="text-align:right;">
 0.0000000
@@ -62675,30 +62404,13 @@ A3GALT2
 </tr>
 <tr>
 <td style="text-align:left;">
-A4GALT
+LOC100132062,LOC100133331
 </td>
-<td style="text-align:right;">
-2.599630
-</td>
-<td style="text-align:right;">
-7.230100
-</td>
-<td style="text-align:right;">
-0.0000000
-</td>
-<td style="text-align:right;">
-13.1756000
-</td>
-</tr>
-<tr>
 <td style="text-align:left;">
-A4GNT
+chr1:323891-328581
 </td>
 <td style="text-align:right;">
-0.000000
-</td>
-<td style="text-align:right;">
-0.000000
+0.0119596
 </td>
 <td style="text-align:right;">
 0.0000000
@@ -62709,64 +62421,13 @@ A4GNT
 </tr>
 <tr>
 <td style="text-align:left;">
-AAAS
+OR4F16
 </td>
-<td style="text-align:right;">
-25.208600
-</td>
-<td style="text-align:right;">
-51.628100
-</td>
-<td style="text-align:right;">
-17.4741000
-</td>
-<td style="text-align:right;">
-31.5348000
-</td>
-</tr>
-<tr>
 <td style="text-align:left;">
-AACS
+chr1:367658-368597
 </td>
 <td style="text-align:right;">
-6.451390
-</td>
-<td style="text-align:right;">
-7.978660
-</td>
-<td style="text-align:right;">
-14.0857000
-</td>
-<td style="text-align:right;">
-18.7953000
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-AADAC
-</td>
-<td style="text-align:right;">
-0.000000
-</td>
-<td style="text-align:right;">
-0.000000
-</td>
-<td style="text-align:right;">
-0.0665798
-</td>
-<td style="text-align:right;">
-0.0798925
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-AADACL2
-</td>
-<td style="text-align:right;">
-0.000000
-</td>
-<td style="text-align:right;">
-0.000000
+0.0000000
 </td>
 <td style="text-align:right;">
 0.0000000
@@ -62777,16 +62438,152 @@ AADACL2
 </tr>
 <tr>
 <td style="text-align:left;">
-AADACL3
+FAM87B
+</td>
+<td style="text-align:left;">
+chr1:752750-755214
 </td>
 <td style="text-align:right;">
-0.000000
+0.0935429
 </td>
 <td style="text-align:right;">
-0.000000
+0.0489607
 </td>
 <td style="text-align:right;">
-0.0000000
+0.1009270
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+LINC01128
+</td>
+<td style="text-align:left;">
+chr1:762970-794826
+</td>
+<td style="text-align:right;">
+3.6592200
+</td>
+<td style="text-align:right;">
+3.9595000
+</td>
+<td style="text-align:right;">
+4.1739300
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SAMD11
+</td>
+<td style="text-align:left;">
+chr1:861120-894679
+</td>
+<td style="text-align:right;">
+0.0938436
+</td>
+<td style="text-align:right;">
+0.1177880
+</td>
+<td style="text-align:right;">
+0.1219260
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+KLHL17
+</td>
+<td style="text-align:left;">
+chr1:895966-901099
+</td>
+<td style="text-align:right;">
+8.9483800
+</td>
+<td style="text-align:right;">
+10.8943000
+</td>
+<td style="text-align:right;">
+11.2055000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+PLEKHN1
+</td>
+<td style="text-align:left;">
+chr1:901876-910484
+</td>
+<td style="text-align:right;">
+4.9064500
+</td>
+<td style="text-align:right;">
+5.2886700
+</td>
+<td style="text-align:right;">
+5.0214600
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ISG15
+</td>
+<td style="text-align:left;">
+chr1:948846-949919
+</td>
+<td style="text-align:right;">
+322.8730000
+</td>
+<td style="text-align:right;">
+251.3020000
+</td>
+<td style="text-align:right;">
+287.4710000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+AGRN
+</td>
+<td style="text-align:left;">
+chr1:955502-991499
+</td>
+<td style="text-align:right;">
+198.0210000
+</td>
+<td style="text-align:right;">
+221.3250000
+</td>
+<td style="text-align:right;">
+221.6350000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+LINC01342
+</td>
+<td style="text-align:left;">
+chr1:1072396-1079434
+</td>
+<td style="text-align:right;">
+0.0966049
+</td>
+<td style="text-align:right;">
+0.0336875
+</td>
+<td style="text-align:right;">
+0.0362167
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+MIR200B
+</td>
+<td style="text-align:left;">
+chr1:1102483-1102578
+</td>
+<td style="text-align:right;">
+93.3470000
+</td>
+<td style="text-align:right;">
+33.0427000
 </td>
 <td style="text-align:right;">
 0.0000000
@@ -62794,60 +62591,26 @@ AADACL3
 </tr>
 <tr>
 <td style="text-align:left;">
-AADACL4
+MIR200A
 </td>
-<td style="text-align:right;">
-0.000000
-</td>
-<td style="text-align:right;">
-0.000000
-</td>
-<td style="text-align:right;">
-0.0000000
-</td>
-<td style="text-align:right;">
-0.0000000
-</td>
-</tr>
-<tr>
 <td style="text-align:left;">
-AADAT
+chr1:1103242-1103332
 </td>
 <td style="text-align:right;">
-29.432800
+84.1265000
 </td>
 <td style="text-align:right;">
-5.919560
+89.8971000
 </td>
 <td style="text-align:right;">
-0.0000000
-</td>
-<td style="text-align:right;">
-1.4717300
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-AAED1
-</td>
-<td style="text-align:right;">
-6.187740
-</td>
-<td style="text-align:right;">
-1.803400
-</td>
-<td style="text-align:right;">
-2.3459600
-</td>
-<td style="text-align:right;">
-1.4995000
+91.5611000
 </td>
 </tr>
 </tbody>
 </table>
 <pre class="r"><code class="hljs"><span class="hljs-comment"># Number of PDCD1 gene for the measurements</span>
 dim(PDCD1_exp)</code></pre>
-<pre><code class="hljs">## [1] 19810     7</code></pre>
+<pre><code class="hljs">## [1] 27024    27</code></pre>
 </div>
 
 

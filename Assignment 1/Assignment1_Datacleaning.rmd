@@ -52,7 +52,7 @@ Geo_tables
 
 ```{r}
 results <- DBI::dbGetQuery(con,'select * from gpl limit 5')
-knitr::kable(head(results[,1:10]), format = "html")
+knitr::kable(head(results[,1:10]), format = "pipe")
 
 ```
 
@@ -67,7 +67,7 @@ sql <- paste("SELECT DISTINCT gse.title,gse.gse, gpl.title,",
 " gse.submission_date > '2014-01-01' AND",
 " gse.title LIKE '%Cancer%' AND", 
 " gpl.organism LIKE '%Homo sapiens%' AND",
-" gpl.technology LIKE '%high-throughput sequencing%' ",
+" gpl.technology LIKE '%High-throughput sequencing%' ",
 " ORDER BY gse.submission_date DESC",sep=" ")
 ```
 ## Result obtaining
@@ -80,22 +80,16 @@ knitr::kable(rs, format = "html")
 ## Breakdown of Supplementary file from the search results
 
 ```{r}
-unlist(lapply(rs$supplementary_file,
-       FUN = function(x){x <- unlist(strsplit(x,";")) ;
-       x <- x[grep(x,pattern="txt",ignore.case = TRUE)];
-       tail(unlist(strsplit(x,"/")),n=1)})) [1:10]
-```
-## Breakdown of the supplementary file links of list above
-
-```{r}
-counts_files <- rs$supplementary_file[grep(rs$supplementary_file, pattern = "count",ignore.case = TRUE)]
+counts_files <- rs$supplementary_file[grep(rs$supplementary_file,
+                              pattern = "count",ignore.case = TRUE)]
 knitr::kable(counts_files, format = "html")
 ```
+
 ## Oncogene expression data obtaining
 The following query allows for the **GSE164730** expression data retrieval.
 
 ```{r}
-sfiles = GEOquery::getGEOSuppFiles('GSE146024')
+sfiles = GEOquery::getGEOSuppFiles('GSE131222')
 
 fnames = rownames(sfiles)
 ```
@@ -105,9 +99,11 @@ fnames = rownames(sfiles)
 b2 = read.delim(fnames[1],header =TRUE)
 head(b2)
 ```
+
+
 # The new part from the Assignment_Dataexpression.rmd file
 ```{r}
-gse <- GEOquery::getGEO("GSE111892",GSEMatrix = FALSE)
+gse <- GEOquery::getGEO("GSE131222",GSEMatrix = FALSE)
 knitr::kable(data.frame(head(GEOquery::Meta(gse))), format = 'html')
 ```
 
@@ -124,7 +120,7 @@ length(current_gpl_info$sample_id)
 #Expression data retrieval
  
 ```{r}
-sfiles = GEOquery::getGEOSuppFiles('GSE146024')
+sfiles = GEOquery::getGEOSuppFiles('GSE131222')
 fnames = rownames(sfiles)
 
 ```
