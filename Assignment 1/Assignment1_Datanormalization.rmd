@@ -1,0 +1,223 @@
+---
+title: "Assignment1.rmd"
+output: html_document
+date: "2023-02-04"
+---
+
+## Installing dependencies
+The dependencies has are already included with the command: 
+``` RUN R -e "BiocManager::install(c('DESeq2', 'pheatmap'))" ``` 
+```{r}
+
+if (!requireNamespace("GEOmetadb", quietly = TRUE))
+  BiocManager::install("GEOmetadb")
+
+```
+
+
+```{r}
+
+if (!requireNamespace("GEOmetadb", quietly = TRUE))
+  BiocManager::install("GEOmetadb")
+
+```
+
+## Downloading the the meta data from GEO
+
+The meta data is installing.
+```{r}
+
+if(!file.exists('GEOmetadb.sqlite')) 
+  GEOmetadb::getSQLiteFile()
+
+```
+## Setting up the tables and connect of the metadb
+The connection is established with the databases
+
+```{r}
+con <- DBI::dbConnect(RSQLite::SQLite(),'GEOmetadb.sqlite')
+
+```
+
+```{r}
+Geo_tables <- DBI::dbListTables(con)
+Geo_tables
+
+```
+
+## Retrieving the information about 
+* Technology : Highthroughoutput RNA sequencing
+* Organism: Homo sapiens
+* Within 9 years 
+
+```{r}
+results <- DBI::dbGetQuery(con,'select * from gpl limit 5')
+knitr::kable(head(results[,1:10]), format = "pipe")
+
+```
+
+```{r}
+sql <- paste("SELECT DISTINCT gse.title,gse.gse, gpl.title,",
+" gse.submission_date,",
+" gse.supplementary_file",
+"FROM",
+" gse JOIN gse_gpl ON gse_gpl.gse=gse.gse",
+" JOIN gpl ON gse_gpl.gpl=gpl.gpl",
+"WHERE",
+" gse.submission_date > '2014-01-01' AND",
+" gse.title LIKE '%Cancer%' AND", 
+" gpl.organism LIKE '%Homo sapiens%' AND",
+" gpl.technology LIKE '%High-throughput sequencing%' ",
+" ORDER BY gse.submission_date DESC",sep=" ")
+```
+## Result obtaining
+The search results from the query can be obtained from the following command
+
+```{r}
+rs <- DBI::dbGetQuery(con,sql)
+#knitr::kable(rs, format = "pipe")
+```
+## Breakdown of Supplementary file from the search results
+
+```{r}
+counts_files <- rs$supplementary_file[grep(rs$supplementary_file,
+                              pattern = "count",ignore.case = TRUE)]
+knitr::kable(counts_files, format = "pipe")
+```
+
+## Oncogene expression data obtaining
+The following query allows for the **GSE164730** expression data retrieval.
+
+```{r}
+sfiles = GEOquery::getGEOSuppFiles('GSE131222')
+
+fnames = rownames(sfiles)
+```
+## Reading the gene expression data
+
+```{r}
+b2 = read.delim(fnames[1],header =TRUE)
+head(b2)
+```
+
+
+# The new part from the Assignment_Dataexpression.rmd file
+```{r}
+gse <- GEOquery::getGEO("GSE131222",GSEMatrix = FALSE)
+knitr::kable(data.frame(head(GEOquery::Meta(gse))), format = 'pipe')
+```
+
+```{r}
+current_gpl <- names(GEOquery::GPLList(gse))[1]
+current_gpl_info <- GEOquery::Meta(GEOquery::getGEO(current_gpl))
+current_gpl_info$title
+current_gpl_info$submission_date
+current_gpl_info$last_update_date
+current_gpl_info$organism
+length(current_gpl_info$series_id)
+length(current_gpl_info$sample_id)
+```
+#Expression data retrieval
+ 
+```{r}
+sfiles = GEOquery::getGEOSuppFiles('GSE131222')
+fnames = rownames(sfiles)
+
+```
+
+```{r}
+GLI2_exp =read.delim(fnames[1],header=TRUE,
+check.names = FALSE)
+```
+# 10th Row gene expression of PLEKHN1
+```{r}
+read.table(fnames[1],header=TRUE,
+check.names=FALSE,nrows = 10)[10,1:4]
+```
+
+
+```{r}
+knitr::kable(GLI2_exp[1:15,1:9], format = "pipe")
+```
+
+
+```{r}
+# Number of PDCD1 gene for the measurements
+dim(GLI2_exp)
+colnames(GLI2_exp)
+```
+
+```{r}
+summarized_gene_counts <- sort(table(GLI2_exp$gene),
+decreasing = TRUE)
+
+knitr::kable(table(GLI2_exp$gene)[1:10], format="pipe")
+
+knitr::kable(summarized_gene_counts[which(summarized_gene_counts>1)[1:10]])
+```
+
+```{r}
+cpms = edgeR::cpm(GLI2_exp[,3:8])
+rownames(cpms) <- GLI2_exp[,2]
+
+```
+```{r}
+keep = rowSums(cpms >1) >= 6
+GLI2_exp_filtered = GLI2_exp[keep,]
+dim(GLI2_exp_filtered)
+```
+
+#Less duplicate data observed
+```{r}
+summarized_gene_counts_filtered <- sort(table(GLI2_exp_filtered$gene))
+
+knitr::kable(summarized_gene_counts_filtered[which(summarized_gene_counts_filtered >1)[1:10]],format = "pipe")
+```
+
+```{r}
+data2plot <- log2(edgeR::cpm(GLI2_exp_filtered[,3:8]))
+boxplot(data2plot, xlab = "Samples", ylab = "log2 CPM", las = 2, cex = 0.5, cex.lab=0.5,
+  cex.axis=0.5, main = "GLI2 RNASeq samples")
+```
+
+```{r}
+plot(data2plot)
+abline(h = median(apply(data2plot, 2, median)),
+  col = "green", lwd = 0.6, lty = "dashed")
+```
+
+```{r}
+counts_density <- apply(log2(edgeR::cpm(GLI2_exp_filtered[,3:8])),
+                        2, density)
+xlim <- 0; ylim <- 0
+for (i in 1:length(counts_density)) {
+  xlim <- range(c(xlim, counts_density[[i]]$x));
+  ylim <- range(c(ylim, counts_density[[i]]$y))
+}
+
+cols <- rainbow(length(counts_density))
+ltys <- rep(1, length(counts_density))
+
+plot(counts_density[[1]], xlim=xlim, ylim=ylim, type="n",
+     ylab="Smoothing density of log2-CPM",
+     main="", cex.lab=0.85)
+for (i in 1:length(counts_density))
+  lines(counts_density[[i]], col=cols[i], lty=ltys[i])
+
+legend("topright", colnames(data2plot),
+       col=cols, lty=ltys, cex=0.75,
+       border="blue", text.col = "green4",
+       merge = TRUE, bg = "gray90")
+```
+
+```{r}
+filtered_data_matrix <-as.matrix(GLI2_exp_filtered[,3:8])
+rownames(filtered_data_matrix) <- GLI2_exp_filtered$gene
+d = edgeR::DGEList(counts=filtered_data_matrix)
+```
+```{r}
+d  = edgeR::calcNormFactors(d)
+normalized_counts <- edgeR::cpm(d)
+normalized_counts
+```
+
