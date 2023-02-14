@@ -247,7 +247,7 @@ if(file.exists(validation)){
                         mart = ensembl)
   saveRDS(GLI2_id_conversion, validation)
 }
-readRDS(validation)
+#readRDS(validation)
 ```
 <br>
 ```{r eval=TRUE}
@@ -292,7 +292,7 @@ The dataset important aspect of basal-like subtype switching by GLI2 treatment o
 
 ### Were there expression values that were not unique for specific genes? How did you handle these?
 
-Yes,there were expression values for genes specified (Line 156) I have filtered them. Because there were significant amount of the duplicate genes which might disturb the later analysis.
+Yes,there were expression values for genes specified (Line 156) I have filtered them. Because there were significant amount of the duplicate genes which might disturb the later analysis. This includes genes that are having no expresion at all at 6 different treatments.
  
 <br>
 
@@ -304,15 +304,15 @@ The dataset already has HUGO symbols. This is why I did not convert them to ENSE
 
 ### How many outliers were removed?
 
-I have removed 15497 outliers having low counts.
+I have removed 15497 outliers having low counts. Dataset had NA values  with multiple columns of unknown exprerssion set. Those were also remvoed. Therefore there is better analysis for the rest of the data.
 <br>
 
 ### How did you handle replicates?
-I had to do seperate research on the replicated genes. Most of these ones are non-coding RNA  such as micro-RNA and so on for example (https://www.ncbi.nlm.nih.gov/gene?Db=gene&Cmd=DetailsSearch&Term=102465753)
+I had to do seperate research on the replicated genes. Most of these ones are non-coding RNA  such as micro-RNA and so on for example (https://www.ncbi.nlm.nih.gov/gene?Db=gene&Cmd=DetailsSearch&Term=102465753) These duplciates were eliminated on normalizaiton factor calculation section.
 <br>
 
 ### What is the final coverage of your dataset?
-The final data set includes 11527 genes with respective treatments made grouped,cleaned and normalized values.
+The final data set includes 11527 genes with respective treatments made grouped, cleaned, normalized values and later identified via ENSEMBL mapping. 
 <br>
 
 # References
