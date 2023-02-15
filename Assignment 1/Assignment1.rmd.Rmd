@@ -2,12 +2,21 @@
 title: "Assignment1.rmd"
 date: "2023-02-12"
 author: "Metyu Melkonyan"
+bibliography: A1.bib
 output: 
   html_document:
     toc: yes
   html_notebook:
     toc: yes
 ---
+ * edgeR (@robinson2010a)
+ * Bioconductor (@durinck2009a)
+ * GEOquery (@davis2007a)
+ * R language (@r)
+ * Article (@adams2019transcriptional)
+ * NCBI (@sayers2010database)
+ * Rmarkdown (@Allaire_rmarkdown_Dynamic_Documents_2021)
+ * BioMart (@durinck2005a)
 
 ## Installing dependencies and dowloading the packages
 <br>
@@ -317,18 +326,13 @@ The final data set includes 11527 genes with respective treatments made grouped,
 
 # References
 
-Adams, C. R., Htwe, H. H., Marsh, T., Wang, A. L., Montoya, M. L., Subbaraj, L., Tward, A. D., Bardeesy, N., & Perera, R. M. (2019). Transcriptional control of subtype switching ensures adaptation and growth of pancreatic cancer. ELife, 8. https://doi.org/10.7554/elife.45313
 
-Bioconductor - home. (n.d.). Bioconductor.org. Retrieved February 13, 2023, from https://www.bioconductor.org/
 
-EdgeR. (n.d.). Bioconductor. Retrieved February 13, 2023, from https://bioconductor.org/packages/release/bioc/html/edgeR.html
 
-Ensembl genome browser 109. (n.d.). Ensembl.org. Retrieved February 12, 2023, from http://useast.ensembl.org/index.html
 
-GEO overview. (n.d.). Nih.gov. Retrieved February 13, 2023, from https://www.ncbi.nlm.nih.gov/geo/info/overview.html
 
-National center for biotechnology information. (n.d.). Nih.gov. Retrieved February 12, 2023, from https://www.ncbi.nlm.nih.gov/
 
-Xie, Y., Allaire, J. J., & Grolemund, G. (2018). R markdown: The definitive guide. CRC Press.
+
+
 
 
