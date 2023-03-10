@@ -1,5 +1,5 @@
 ---
-title: "Assignment2.rmd"
+title: "A2_MetyuMelkonyan"
 date: "2023-03-08"
 author: "Metyu Melkonyan"
 bibliography: A2.bib
@@ -9,6 +9,7 @@ output:
   html_notebook:
     toc: yes
 ---
+
 * Bioconductor (@durinck2009a)
 * R language (@r)
 * Article (@adams2019transcriptional)
@@ -21,7 +22,7 @@ output:
 * Circlize (@gu2014circlize)
 
 ### Installing Dependencies
-```{r eval=TRUE, warning=FALSE}
+```{r eval=TRUE, warning=FALSE,}
 if (!requireNamespace("BiocManager", quietly = TRUE)){
   install.packages("BiocManager")}
 if (!requireNamespace("edgeR", quietly = TRUE)){
@@ -79,7 +80,7 @@ to empty vector control cells (EV). This has been also proved by the authors.
 However, indicating this again would strengthen the hypothesis corresponding to
 Dox treated cells having GLI2 vector show higher EMT gene expression  as
 opposed to controls having empty vector showing less expression of the genes.
-```{r}
+```{r eval=TRUE}
 GLI2_treatment_samples <- grep(colnames(normalized_count_data),
                               pattern = "\\G")
 EV_tratment_samples <- grep(colnames(normalized_count_data),
@@ -116,7 +117,7 @@ limma::plotMDS(heatmap_matrix,col=c(rep("darkgreen",3),rep("blue",3)))
 The model I am building is based upon GLI2 expression status of genes that
 are showing higher expression with significant indications of the differential 
 expression.
-```{r}
+```{r }
 samples <- data.frame(
            lapply(colnames(normalized_count_data)[2:7],
             FUN=function(x){
@@ -283,7 +284,6 @@ portion of the differentially expressed genes. I did not use the LogFC to
 distinguish between EMT GLI2 vs non-EMT GLI2, because all of logFC values are
 negative. This indicates there is always up regualtion after the Dox treatment
 and GLI2 expression is always higher than the control. Pretty high confidence.
-
 ```{r}
 qlf_output_hits_withgn <- merge(GLI2_exp[,1:1],qlf_output_hits,
                  by.y=0,by.x=1,all.y=TRUE)
@@ -303,10 +303,9 @@ GLI2_non_emtgenes <- qlf_output_hits_withgn$hgnc_symbol[
 
 write.table(x=GLI2_emt_Genes, file = file.path(getwd(),"GLI2_emt_Genes.txt"),
             sep = "/", row.names = FALSE, col.names = FALSE, quote = FALSE)
-write.table(x=GLI2_non_emtgenes, file = file.path(getwd(),"GLI2_non_emtgenes"),
+write.table(x=GLI2_non_emtgenes, file = file.path(getwd(),"GLI2_non_emtgenes.txt"),
             sep = "/", row.names = FALSE, col.names = FALSE, quote = FALSE)
 ```
-
 ## Interpretation
 
 #### Do the over-representation results support conclusions or mechanism discussed in the original paper? <br>
