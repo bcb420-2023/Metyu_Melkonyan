@@ -11,7 +11,7 @@ I am a fourth-year Cell System's and Molecular Biology Specialist student.
 
 ### Assignment 2
 * [HTML Notebook](https://github.com/bcb420-2023/Metyu_Melkonyan/blob/main/Assignment2/A2_MetyuMelkonyan.nb.html)
-* [Assignment 2](https://github.com/bcb420-2023/Metyu_Melkonyan/tree/main/Assignment2)
+* [Assignment 2](https://github.com/bcb420-2023/Metyu_Melkonyan/blob/main/Assignment2/A2_MetyuMelkonyan.Rmd)
 * [Preview of Assignment 2]()
 
 ### Assignment 3
