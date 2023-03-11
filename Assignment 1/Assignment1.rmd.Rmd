@@ -280,7 +280,7 @@ nrow(normalized_counts_annot)
 Writing the normalized and annotated gene data to a file in the working directory
 
 ```{r eval=TRUE}
-write.table(normalized_counts_annot, file=file.path(getwd(),"normalized_data"), append =FALSE, row.names = TRUE, col.names = TRUE)
+write.table(normalized_counts_annot, file=file.path(getwd(),"normalized_counts_annotated"), append =FALSE, row.names = TRUE, col.names = TRUE)
 ```
 
 # Interpretation
