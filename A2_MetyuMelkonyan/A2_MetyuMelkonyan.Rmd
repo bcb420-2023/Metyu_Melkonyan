@@ -365,13 +365,13 @@ knitr::kable(head(Upregulated_Gprofiler_validated, 10), format = "html")
 
 
 ### Part 18: Visualizations of the upregualted and the downregulated genes
-```{r message=FALSE}
+```{r }
 gprofiler2::gostplot(Upregulated_Gprofiler_validated) %>% plotly::layout(title = "Upregulated genes ", font = list(size = 10))
 
 ```
 
 ### Continuing
-```{r message=FALSE}
+```{r }
 gprofiler2::gostplot(Downregulated_Gprofiler_validated) %>% plotly::layout(title = "Downregulated genes ", font = list(size = 10))
 ```
 
