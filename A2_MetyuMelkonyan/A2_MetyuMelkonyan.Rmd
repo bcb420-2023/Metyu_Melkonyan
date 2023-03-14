@@ -22,7 +22,7 @@ output:
 * Circlize (@gu2014circlize)
 
 ### Installing Dependencies
-```{r eval=TRUE, warning=FALSE,}
+```{r message=FALSE}
 if (!requireNamespace("BiocManager", quietly = TRUE)){
   install.packages("BiocManager")}
 if (!requireNamespace("edgeR", quietly = TRUE)){
@@ -37,21 +37,34 @@ if (!requireNamespace("ExpressionSet", quietly = TRUE)){
   BiocManager::install("ExpressionSet")}
 if  (!requireNamespace("circlize", quietly = TRUE)){
   BiocManager::install("circlize")}
+if (!requireNamespace("gprofiler2", quietly = TRUE))
+    BiocManager::install("gprofiler2")
+if (!requireNamespace("kableExtra", quietly = TRUE))
+    BiocManager::install("kableExtra")
+if (!requireNamespace("plotly", quietly = TRUE))
+    BiocManager::install("plotly")
+if (!requireNamespace("dplyr", quietly = TRUE))
+    BiocManager::install("dplyr")
+library(dplyr)
+library(plotly)
+
 ```
 ### Part 1: Loading the normalized gene data
 The normalized data has already been written into a text file by the previous
 Assignment 1. For better assessment, I have indicated it on the file uploaded.
-```{r eval=TRUE}
+```{r eval=TRUE, message=FALSE}
 normalized_count_data <- read.table(file=file.path(getwd(), "normalized_counts_annotated")
 , header = TRUE, stringsAsFactors = FALSE, check.names = FALSE )
+
 knitr::kable(normalized_count_data[1:10,1:7], type="pipe")
 ```
 ### Part 2: Defining Portions of the Heatmap Matrix <br>
 I am defining the elements of the normalized data matrix which I will 
 be using for the heatmap later.
-```{r eval=TRUE, echo=FALSE}
+```{r eval=TRUE, echo=FALSE, message=FALSE}
 heatmap_matrix <- normalized_count_data[,2:7]
-rownames(heatmap_matrix) <- normalized_count_data$hgnc_symbol
+colnames(normalized_count_data)[1] <- "Gene_symbol"
+rownames(heatmap_matrix) <- normalized_count_data$Gene_symbol
 colnames(heatmap_matrix) <- colnames(normalized_count_data[,2:7])
 heatmap_matrix <- t(scale(t(heatmap_matrix)))
 ```
@@ -79,10 +92,10 @@ to empty vector control cells (EV). This has been also proved by the authors.
 However, indicating this again would strengthen the hypothesis corresponding to
 Dox treated cells having GLI2 vector show higher EMT gene expression  as
 opposed to controls having empty vector showing less expression of the genes.
-```{r eval=TRUE}
+```{r message=FALSE}
 GLI2_treatment_samples <- grep(colnames(normalized_count_data),pattern = "\\G")
 EV_tratment_samples <- grep(colnames(normalized_count_data),pattern = "\\E")
-gene_of_interest <- which(normalized_count_data$hgnc_symbol == "SPP1")
+gene_of_interest <- which(normalized_count_data$Gene_symbol == "SPP1")
 
 YAPC_GLI2_samples <- t(normalized_count_data[gene_of_interest,5:7])
 colnames(YAPC_GLI2_samples) <- c("GLI2_vector_cells")
@@ -90,15 +103,15 @@ colnames(YAPC_GLI2_samples) <- c("GLI2_vector_cells")
 YAPC_EV_samples <- t(normalized_count_data[gene_of_interest,2:4])
 colnames(YAPC_EV_samples) <- c("Empty_Vector_cells")
 
-YAPC_EV_samples
 YAPC_GLI2_samples
+YAPC_EV_samples
 ```
 ### Part 5: T-test between EV and GLI2
 GLI2 treated cells are different in terms of their expression from the 
 empty vector cells. P value (0.03135) < 0.05. Indeed this shows there is 
 significant difference. However, this requires to see if GLI2 treatments 
 show difference among one another so the control cells.
-```{r}
+```{r message=FALSE}
 t.test(x=t(YAPC_GLI2_samples), y=t(YAPC_EV_samples))
 ```
 ### PART 6: MDS Plot for Sample Clustering
@@ -107,14 +120,14 @@ Earlier examples of MDS plot showed similar results. I hypothesize that GLI2
 expression is higher than control cell's expression levels due to DOX induction
 of EMT genes. In general I have observed Gli2 cells to be less clustered, 
 due to higher differential expression among GLI2 cells.
-```{r}
+```{r message=FALSE}
 limma::plotMDS(heatmap_matrix,col=c(rep("darkgreen",3), rep("blue",3)))
 ```
 ### Part 7: Model Building of GLI2 expression status
 The model I am building is based upon GLI2 expression status of genes that
 are showing higher expression with significant indications of the differential 
 expression.
-```{r }
+```{r message=FALSE}
 samples <- data.frame(lapply(colnames(normalized_count_data)[2:7],
            FUN=function(x){unlist(strsplit(x, split = "[0-9]"))[c(1)]}))
 
@@ -130,9 +143,9 @@ knitr::kable(YRG_model[1:6,], type = "pipe")
 The differential expression data matrix corresponding to gene symbols were merged
 with the matrix that has the fitted model. The Benjamin-hochberg correction 
 method was applied to adjust the expression data.
-```{r}
+```{r message=FALSE}
 expressionMatrix <- as.matrix(normalized_count_data[,2:7])
-rownames(expressionMatrix) <- normalized_count_data$hgnc_symbol
+rownames(expressionMatrix) <- normalized_count_data$Gene_symbol
 colnames(expressionMatrix) <- colnames(normalized_count_data)[2:7]
 set_expression_matrix <- Biobase::ExpressionSet(assayData = expressionMatrix)
 
@@ -145,13 +158,13 @@ BH_method_fit <- limma::topTable(fit_Bayes,
                    adjust.method = "BH",
                    number = nrow(expressionMatrix))
 
-merged_hits <- merge(normalized_count_data$hgnc_symbol,
+merged_hits <- merge(normalized_count_data$Gene_symbol,
                      BH_method_fit,
                      by.y=0,by.x=1,
                      all.y=TRUE)
 
 merged_hits <- merged_hits[order(merged_hits$P.Value),]
-colnames(merged_hits) <- c("hgnc_symbol","logFC", "AveExpr", "t",
+colnames(merged_hits) <- c("Gene_symbol","logFC", "AveExpr", "t",
                            "P.Value","adj.P.Val", "B")
 rownames(merged_hits) <- 1:nrow(merged_hits)
 
@@ -162,7 +175,7 @@ The p-value was adjusted to have more stringent results. Normally significant
 p-value is set to 0.05. However, I wanted to be more stringent on my results
 and indicate the specific EMT genes. Probable genes are 741. However,
 there are 27 genes that have significant potential to be an EMT gene.
-```{r}
+```{r message=FALSE}
 length(which(merged_hits$P.Value < 0.0005))
 
 length(which(merged_hits$adj.P.Val < 0.0005))
@@ -172,15 +185,15 @@ This part of this assignment aims to detect SPP1's role on how GLI2 cells are
 more differently expressed and do have higher difference than the control cells.
 It is evident that, with more stringent p-value, the significant portion (741)
 of about 11500 genes are showing features of EMT genes
-```{r eval=TRUE}
-model_pvalues <- data.frame(hgnc_symbol = merged_hits$hgnc_symbol, 
+```{r  message=FALSE}
+model_pvalues <- data.frame(Gene_symbol = merged_hits$Gene_symbol, 
 pvalue = merged_hits$P.Value)
 
 model_pvalues$color <- "black"
 model_pvalues$color[model_pvalues$pvalue < 0.0005] <- "orange"
     
-hgnc_of_interest <- normalized_count_data$hgnc_symbol[which(normalized_count_data$hgnc_symbol == "SPP1")]
-model_pvalues$color[model_pvalues$hgnc_symbol== hgnc_of_interest] <- "red"
+SPP1 <- normalized_count_data$Gene_symbol[which(normalized_count_data$Gene_symbol == "SPP1")]
+model_pvalues$color[model_pvalues$Gene_symbol== SPP1] <- "red"
 
 plot(model_pvalues$pvalue,
      col = model_pvalues$color,
@@ -188,7 +201,7 @@ plot(model_pvalues$pvalue,
      ylab ="P-value",
      main="P value distribution of EMT Genes")
 
-points(model_pvalues[which(model_pvalues$hgnc_symbol == hgnc_of_interest), 1:2],
+points(model_pvalues[which(model_pvalues$Gene_symbol == "SPP1"), 1:2],
        pch = 20, col="red", cex=1.5)
 legend(0, 1, legend=c("SPP1"), fill=c("red"))
 ```
@@ -196,9 +209,11 @@ legend(0, 1, legend=c("SPP1"), fill=c("red"))
 With more stringent gene size I was able to see cleaner difference between GLI2
 and the control cells. The clustered genes are the symmetric each other across
 the diagonals. The high expression showing genes on the GLI2's side is lower on 
-the EV' side. Top hits are assessed on the stringent p-value of 0.0005. 
-```{r}
-top_hits <- merged_hits$hgnc_symbol[merged_hits$P.Value < 0.0005]
+the EV' side. Top hits are assessed on the stringent p-value of 0.0005.
+The difference between the first and the latest heatmap shows there is significant difference 
+in terms of gene expression whose expression is represented for each respective Treatments
+```{r message=FALSE}
+top_hits <- merged_hits$Gene_symbol[merged_hits$P.Value < 0.0005]
 heatmap_matrix_tophits <- t(scale(t(heatmap_matrix[which(rownames(heatmap_matrix) 
                        %in% top_hits),])))
 
@@ -213,14 +228,16 @@ latest_heatmap <- ComplexHeatmap::Heatmap(as.matrix(heatmap_matrix_tophits),
 show_row_dend = TRUE, show_column_dend = TRUE, col=heatmap_col,
 show_column_names = TRUE, show_row_names = FALSE, show_heatmap_legend = TRUE)
 latest_heatmap
+first_heatmap
 ```
 ### Part 12: Dataset Filtering and Data Extracting
 The previously extracted GSE131222 data from gene omnibus expression (GEO) is 
 extracted separately. The low count portions of the data filtered and a new
 matrix was created.
-```{r message=FALSE, echo=FALSE}
+```{r message=FALSE}
 data = GEOquery::getGEOSuppFiles("GSE131222")
 datanames = rownames(data)
+
 GLI2_exp =read.delim(datanames[1],header=TRUE,check.names = FALSE)
 
 count_per_ms = edgeR::cpm(GLI2_exp[,3:8])
@@ -231,12 +248,13 @@ GLI2_exp_filtered = GLI2_exp[rows_filtered,]
 
 filtered_GLI2_matrix <- as.matrix(GLI2_exp_filtered[,3:8])
 rownames(filtered_GLI2_matrix) <- GLI2_exp_filtered$gene
+head(GLI2_exp_filtered)[1:8]
 ```
 ### Part 13: Grouping Based on the Cell Types
 The similar grouping was done previously. However this time dispersion values,
 normalization factors and differential expression model fitting is applied
 to the samples of GLI2 treatments.
-```{r }
+```{r message=FALSE}
 grouped_treatments <- data.frame(lapply(colnames(GLI2_exp_filtered)[3:8],
                 FUN=function(x){unlist(strsplit(x, split = "[0-9]"))[c(1)]}))
 colnames(grouped_treatments) <- colnames(GLI2_exp)[3:8]
@@ -256,7 +274,7 @@ the expression threshold. I set the p-value as 0.0005. I decided to put it by
 adjusting and observing any difference. The difference between p-value 0.005 and 
 p-value 0.0005 is one. This means this p-value is safe to assume as a threshold
 for significance among these differentially expressing genes.
-```{r}
+```{r message=FALSE}
 qlf_top_hits <- edgeR::topTags(qlf_test.GLI2vsEV,sort.by = "PValue", n = nrow(filtered_GLI2_matrix))
 
 head(qlf_top_hits)
@@ -264,6 +282,7 @@ head(qlf_top_hits)
 length(which(qlf_top_hits$table$PValue < 0.0005))
            
 length(which(qlf_top_hits$table$FDR < 0.0005))
+length(which(qlf_top_hits$table$logFC < 0))
 ```
 ### Part 15: Thresholded Gene List and Final EMT Gene Detection
 The threshold was calculated and based its value I assessed the how many genes 
@@ -272,24 +291,114 @@ portion of the differentially expressed genes. I did not use the LogFC to
 distinguish between EMT GLI2 vs non-EMT GLI2, because all of logFC values are
 negative. This indicates there is always up regulation after the Dox treatment
 and GLI2 expression is always higher than the control. Pretty high confidence.
-```{r}
+```{r message=FALSE}
 qlf_tophits_withgn <- merge(GLI2_exp[,1:1], qlf_top_hits, by.y=0,by.x=1,all.y=TRUE)
 
-colnames(qlf_tophits_withgn) <- c("hgnc_symbol", "logFC", "logCPM","F", "PValue", "FDR")
+colnames(qlf_tophits_withgn) <- c("Gene_symbol", "logFC", "logCPM","F", "PValue", "FDR")
 
 qlf_tophits_withgn[,"logarithmic"] <- (-log(qlf_tophits_withgn$PValue))
-qlf_tophits_withgn <- qlf_tophits_withgn[order(qlf_tophits_withgn$hgnc_symbol),]
+qlf_tophits_withgn <- qlf_tophits_withgn[order(qlf_tophits_withgn$Gene_symbol),]
 
-GLI2_emt_Genes <- qlf_tophits_withgn$hgnc_symbol[which(qlf_tophits_withgn$PValue < 0.0005
+GLI2_emt_Genes <- qlf_tophits_withgn$Gene_symbol[which(qlf_tophits_withgn$PValue < 0.0005
                 & qlf_tophits_withgn$logFC < 0)]
-GLI2_non_emtgenes <- qlf_tophits_withgn$hgnc_symbol[which(qlf_tophits_withgn$PValue == 1)]
+GLI2_non_emtgenes <- qlf_tophits_withgn$Gene_symbol[which(qlf_tophits_withgn$PValue == 1)]
 
-write.table(x=GLI2_emt_Genes, file = file.path(getwd(),"GLI2_emt_Genes.txt"),
+write.table(x=GLI2_emt_Genes, file = file.path(getwd(),"data","GLI2_emt_Genes.txt"),
              sep = "/", row.names = FALSE, col.names = FALSE, quote = FALSE)
-write.table(x=GLI2_non_emtgenes, file = file.path(getwd(),"GLI2_non_emtgenes.txt"),
+write.table(x=GLI2_non_emtgenes, file = file.path(getwd(),"data","GLI2_non_emtgenes.txt"),
                    sep = "/", row.names = FALSE, col.names = FALSE, quote = FALSE)
 ```
-## Interpretation
+### Part 16: GProfiler for Upregulation and Downregulation pathway analysis
+The GProfiler analysis includes BH correction methods (FDR). I sticked using the same method because I used the same type of method on my previous analysis on FDR portion. For both upregualted and the downregulated genes I have used GO:BP (2022-12-04), Reactome, and WikiPathways( for annotation. These annotations allows for better asessment of my Upregualted genes in terms of defining the biologic pathways they are invovled in.
+
+```{r message=FALSE}
+Upregulated_genes <- read.table(file=file.path(getwd(),"data" ,"GLI2_emt_Genes.txt"),header = TRUE, stringsAsFactors = FALSE, check.names = FALSE)
+Upregulated_genes <- Upregulated_genes[4:nrow(Upregulated_genes),]
+Upregulated_Gprofiler_validated <- gprofiler2::gost(query = Upregulated_genes, 
+                                  organism = "hsapiens", 
+                                  exclude_iea = TRUE,
+                                  sources = c("GO:BP", "REAC", "WP"),
+                                  correction_method = "fdr",
+                                  ordered_quer = FALSE,
+                                  )
+```
+### Continuing Analysis
+```{r message=FALSE}
+Downregulated_genes <- read.table(file=file.path(getwd(),"data" ,"GLI2_non_emtgenes.txt"),header = TRUE, stringsAsFactors = FALSE, check.names = FALSE)
+Downregulated_genes <- Downregulated_genes[13:nrow(Downregulated_genes),]
+Downregulated_Gprofiler_validated <- gprofiler2::gost(query = Downregulated_genes,
+                                  organism = "hsapiens", 
+                                  exclude_iea = TRUE,
+                                  correction_method = "fdr",
+                                  ordered_quer = FALSE,
+                                  source = c("GO:BP", "REAC", "WP"))
+```
+### Part 17: Subsetting the Gprofiler downregulated and upregualted genes
+After subsetting I do have 771 genes that are down regulated. Down regualted genes are invovled in common biological pathways that are not involved in cancerous activities.
+```{r message=FALSE}
+Downregulated_genes_filtered <- data.frame(
+  term_name = Downregulated_Gprofiler_validated$result$term_name[Downregulated_Gprofiler_validated$result$term_size < 200 &                                                                         Downregulated_Gprofiler_validated$result$term_size > 1],
+   term_id  = Downregulated_Gprofiler_validated$result$term_id[Downregulated_Gprofiler_validated$result$term_size < 200 & 
+              Downregulated_Gprofiler_validated$result$term_size > 1],
+  source  = Downregulated_Gprofiler_validated$result$source[Downregulated_Gprofiler_validated$result$term_size < 200 &
+              Downregulated_Gprofiler_validated$result$term_size > 1]
+)
+length(Downregulated_genes_filtered$term_name)
+knitr::kable(head(Downregulated_genes_filtered, 10), format = "html")
+```
+### For Upregulation
+After subsetting I do have 1128 genes that are down regulated. Up regualted genes are mostly invovled in cancer activity. Most of the pathwyas are quite invovled in cancerous activty. There is a lot apoptosis and programmed cell death activities.
+```{r message=FALSE, error=FALSE}
+Upregulated_genes_filtered <- data.frame(
+  term_name = Upregulated_Gprofiler_validated$result$term_name[Upregulated_Gprofiler_validated$result$term_size < 200 &                                                                         Upregulated_Gprofiler_validated$result$term_size > 1],
+   term_id  = Upregulated_Gprofiler_validated$result$term_id[Upregulated_Gprofiler_validated$result$term_size < 200 & 
+              Upregulated_Gprofiler_validated$result$term_size > 1],
+  source  = Upregulated_Gprofiler_validated$result$source[Upregulated_Gprofiler_validated$result$term_size < 200 &
+              Upregulated_Gprofiler_validated$result$term_size > 1]
+)
+
+length(Upregulated_genes_filtered$term_name)
+knitr::kable(head(Upregulated_Gprofiler_validated, 10), format = "html")
+
+
+```
+
+
+### Part 18: Visualizations of the upregualted and the downregulated genes
+```{r message=FALSE}
+gprofiler2::gostplot(Upregulated_Gprofiler_validated) %>% plotly::layout(title = "Upregulated genes ", font = list(size = 10))
+
+```
+
+### Continuing
+```{r message=FALSE}
+gprofiler2::gostplot(Downregulated_Gprofiler_validated) %>% plotly::layout(title = "Downregulated genes ", font = list(size = 10))
+```
+
+### Part 19: GProfiler Analyses for the merged dataset
+```{r message=FALSE}
+Complete_Gprofiler_Analyses <- gprofiler2::gost(query = merged_hits$Gene_symbol, 
+                                  organism = "hsapiens", 
+                                  exclude_iea = TRUE,
+                                  correction_method = "fdr",
+                                  sources = c("GO:BP", "REAC", "WP"))
+
+Complete_Gprofiler_Analyses_filtered <- data.frame(term_name = Complete_Gprofiler_Analyses$result$term_name[Complete_Gprofiler_Analyses$result$term_size < 200 &
+                                               Complete_Gprofiler_Analyses$result$term_size > 1],
+  term_id = Complete_Gprofiler_Analyses$result$term_id[Complete_Gprofiler_Analyses$result$term_size < 200 &
+                                           Complete_Gprofiler_Analyses$result$term_size > 1],
+  source = Complete_Gprofiler_Analyses$result$source[Complete_Gprofiler_Analyses$result$term_size < 200 &
+                                         Complete_Gprofiler_Analyses$result$term_size > 1])
+
+length(Complete_Gprofiler_Analyses_filtered$term_name)
+knitr::kable(head(Complete_Gprofiler_Analyses, 1), format = "html")
+```
+### Continuing
+```{r message=FALSE}
+gprofiler2::gostplot(Complete_Gprofiler_Analyses) %>% plotly::layout(title = "Complete plot plot", font = list(size = 10))
+```
+
+### Part 20:Interpretation
 
 #### Do the over-representation results support conclusions or mechanism discussed in the original paper ? <br>
 
@@ -297,7 +406,7 @@ Yes the over-representation results we find is correlated to the conclusion the
 authors make. They conclude that genes having higher GLI2 expression, more 
 differentially expressed, are more possible to be EMT genes. Additionally, we 
 found there is always higher expression on GLI2 treatments given this is a strong
-oncogene acting in basal-sub-type switching triggering EMT switching.
+oncogene acting in basal-sub-type switching triggering EMT switching. As it is obvious from the visualization the upregualted genes are more clustered and are much more in the downregualted genes This supports the hypothesis of authors, concluding the EMT genes to be higher expression than that of the downregualted genes.
 
 #### Can you find evidence, i.e. publications, to support some of the results that you see. How does this evidence support your results ? <br>
 
@@ -306,6 +415,6 @@ expression of GLI2 can lead to SHH gene reduction. This gene has been known to
 be an oncogene associated with basal-sub-type switching in PDAC. They activate 
 GLI2 constantly which has the same expected outcome in our data set having
 GLI2 expressing vectors with constant Dox treatment. In conclusion these two
-paper findings correlate each other.
+paper findings correlate each other. They show that the EMT genes to be abundant in their biological functions and their pathway invovlement.
 
 ## References
