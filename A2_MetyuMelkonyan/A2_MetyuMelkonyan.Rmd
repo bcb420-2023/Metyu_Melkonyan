@@ -22,7 +22,7 @@ output:
 * Circlize (@gu2014circlize)
 
 ### Installing Dependencies
-```{r message=FALSE}
+```{r message=FALSE, warning=FALSE}
 if (!requireNamespace("BiocManager", quietly = TRUE)){
   install.packages("BiocManager")}
 if (!requireNamespace("edgeR", quietly = TRUE)){
