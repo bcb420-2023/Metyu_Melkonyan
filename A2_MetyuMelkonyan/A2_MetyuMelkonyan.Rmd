@@ -8,10 +8,6 @@ output:
     toc: yes
   html_notebook:
     toc: yes
-deploy-staging:
-  environment:
-    name: A2
-    url: https://github.com/bcb420-2023/Metyu_Melkonyan/edit/main/A2_MetyuMelkonyan/A2_MetyuMelkonyan.Rmd
 ---
 
 * Bioconductor (@durinck2009a)
