@@ -234,7 +234,7 @@ first_heatmap
 The previously extracted GSE131222 data from gene omnibus expression (GEO) is 
 extracted separately. The low count portions of the data filtered and a new
 matrix was created.
-```{r message=FALSE}
+```{r message=FALSE,warning=FALSE,warning=FALSE}
 data = GEOquery::getGEOSuppFiles("GSE131222")
 datanames = rownames(data)
 
@@ -344,7 +344,7 @@ Downregulated_genes_filtered <- data.frame(
               Downregulated_Gprofiler_validated$result$term_size > 1]
 )
 length(Downregulated_genes_filtered$term_name)
-knitr::kable(head(Downregulated_genes_filtered, 10), format = "html")
+knitr::kable(Downregulated_genes_filtered$term_name[1:50], format = "html")
 ```
 ### For Upregulation
 After subsetting I do have 1128 genes that are down regulated. Up regualted genes are mostly invovled in cancer activity. Most of the pathwyas are quite invovled in cancerous activty. There is a lot apoptosis and programmed cell death activities.
@@ -358,7 +358,7 @@ Upregulated_genes_filtered <- data.frame(
 )
 
 length(Upregulated_genes_filtered$term_name)
-knitr::kable(head(Upregulated_Gprofiler_validated, 10), format = "html")
+knitr::kable(Upregulated_Gprofiler_validated$result$term_name[1:50], format = "html")
 
 
 ```
@@ -391,7 +391,7 @@ Complete_Gprofiler_Analyses_filtered <- data.frame(term_name = Complete_Gprofile
                                          Complete_Gprofiler_Analyses$result$term_size > 1])
 
 length(Complete_Gprofiler_Analyses_filtered$term_name)
-knitr::kable(head(Complete_Gprofiler_Analyses, 1), format = "html")
+knitr::kable(Complete_Gprofiler_Analyses$result$term_name[1:100], format = "html")
 ```
 ### Continuing
 ```{r message=FALSE}
