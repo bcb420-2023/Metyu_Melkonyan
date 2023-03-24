@@ -1,5 +1,5 @@
 ---
-title: "A2_MetyuMelkonyan.rmd"
+title: "Assignment 2"
 date: "2023-03-08"
 author: "Metyu Melkonyan"
 bibliography: A2.bib
@@ -307,7 +307,7 @@ write.table(x=GLI2_emt_Genes, file = file.path(getwd(),"data","GLI2_emt_Genes.tx
              sep = "/", row.names = FALSE, col.names = FALSE, quote = FALSE)
 write.table(x=GLI2_non_emtgenes, file = file.path(getwd(),"data","GLI2_non_emtgenes.txt"),
                    sep = "/", row.names = FALSE, col.names = FALSE, quote = FALSE)
-write.table(x=data.frame(genename=qlf_tophits_withgn$Gene_symbol[18:nrow(qlf_tophits_withgn)]),file=file.path("data","ranked_genelist.txt"),sep = "/",
+write.table(x=data.frame(genename=qlf_tophits_withgn$Gene_symbol[18:nrow(qlf_tophits_withgn)]),file=file.path("data","ranked_genelist.rnk"),sep = "/",
    row.names = FALSE,col.names = FALSE,quote = FALSE)
 ```
 ### Part 16: GProfiler for Upregulation and Downregulation pathway analysis
