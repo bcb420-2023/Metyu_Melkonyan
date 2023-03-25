@@ -304,11 +304,18 @@ GLI2_emt_Genes <- qlf_tophits_withgn$Gene_symbol[which(qlf_tophits_withgn$PValue
 GLI2_non_emtgenes <- qlf_tophits_withgn$Gene_symbol[which(qlf_tophits_withgn$PValue == 1)]
 
 write.table(x=GLI2_emt_Genes, file = file.path(getwd(),"data","GLI2_emt_Genes.txt"),
-             sep = "/", row.names = FALSE, col.names = FALSE, quote = FALSE)
+             sep = "\t", row.names = FALSE, col.names = FALSE, quote = FALSE)
 write.table(x=GLI2_non_emtgenes, file = file.path(getwd(),"data","GLI2_non_emtgenes.txt"),
-                   sep = "/", row.names = FALSE, col.names = FALSE, quote = FALSE)
-write.table(x=data.frame(genename=qlf_tophits_withgn$Gene_symbol[18:nrow(qlf_tophits_withgn)]),file=file.path("data","ranked_genelist.rnk"),sep = "/",
-   row.names = FALSE,col.names = FALSE,quote = FALSE)
+                   sep = "\t", row.names = FALSE, col.names = FALSE, quote = FALSE)
+genename <- qlf_tophits_withgn$Gene_symbol[18:nrow(qlf_tophits_withgn)]
+genename <- unlist(strsplit(genename, split = ","))
+genename <- data.frame(genename)
+qlf_tophits_withgn <- merge(genename$genename,qlf_tophits_withgn[,7], by.y=0,by.x=0,all.y=TRUE)
+qlf_tophits_withgn <- qlf_tophits_withgn[,2:3]
+colnames(qlf_tophits_withgn)[1] <- "Genename"
+colnames(qlf_tophits_withgn)[2] <- "Logarithmic"
+write.table(x=qlf_tophits_withgn,file=file.path("data","logarithmic_genelist.rnk"),
+    sep = "\t",append=FALSE,row.names = FALSE,col.names = FALSE,quote = FALSE)
 ```
 ### Part 16: GProfiler for Upregulation and Downregulation pathway analysis
 The GProfiler analysis includes BH correction methods (FDR). I sticked using the same method because I used the same type of method on my previous analysis on FDR portion. For both upregualted and the downregulated genes I have used GO:BP (2022-12-04), Reactome, and WikiPathways( for annotation. These annotations allows for better asessment of my Upregualted genes in terms of defining the biologic pathways they are invovled in.
