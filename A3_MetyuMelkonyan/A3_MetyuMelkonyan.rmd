@@ -1,0 +1,151 @@
+---
+title: "Assignment 3"
+author: "Metyu Melkonyan"
+date: "2023-03-26"
+bibliography: A3.bib
+output: 
+  html_notebook:
+    toc: yes
+  html_document:
+    toc: yes
+---
+
+
+```{r}
+if (!requireNamespace("GSA", quietly = TRUE)){
+  install.packages("GSA")}
+```
+
+
+### Part 1: Non-thresholded Gene set Enrichment Analysis
+
+I have used GSEA (4.3.2) non-thresholded gene set enrichment method. I have used Bader Lab geneset of Human_GOBP_AllPathways_no_GO_iea_March_01_2021_symbol.gmt including no HUGO symbols and EI published in March 1 2021. It was released in 2023 of Human MiSigDB. I used no collapse to remap gene symbols to avoid the confusion. 200 max gene size and 15 min gene size to have more stringent values. I used 1000 number of permutations. Therefore, GSEA resulted in more stringent non-EMT values that are shown to be enriched. There is very  genes that are known to be involved in apoptotic process of Cancer cell.The top gene set at the positive geneset is TRANSCRIPTIONAL REGULATION BY SMALL RNAS%REACTOME%R-HSA-5578749.3	 with 0.784 FDR-qvalue and 0.001 Nominal p-value and 0.98 ES score. The top gene set for negative is PHOSPHOLIPASES%HUMANCYC%LIPASYN-PWY with 0FDR and 0 p-value and-0.65 ES This correlated with our previous results that our our log CPM is always ngeative, there is no positive logCPM values. This was our previous hypothesis that almost every gene treated showed higher expression with the treatemnts the authors did to induce the oncogenes. Most of the genesets are Virus related. Furthermore, there are known to be virus effect on pancreas cancer and liver cancer such as chronic Hepatitis C and chronic Hepatitis B() A significant proportion of these pathways are systematic disease causing viruses such as Epstein Barr virus and HIV-1 viruses. The negative results actually contain more oncogenic pathways such that the apoptosis and salicid acid synthesis genesets are more prevalent as opposed to positive. 
+
+![ Figure 1: GSEA Enrichment Results](/Users/mac/Desktop/BCB420/A3_MetyuMelkonyan/enrichment.png)
+
+![ Figure 2: Negative Enrichment Results](/Users/mac/Desktop/BCB420/A3_MetyuMelkonyan/neg.png)
+![ Figure 3: Positive Enrichment Results](/Users/mac/Desktop/BCB420/A3_MetyuMelkonyan/pos.png)
+
+### Part 2: Visualize your Gene set Enrichment Analysis in Cytoscape
+![ Figure 4: Cytoscape Pathway Enrichment Visualization. Both apoptotic and viral geneset are separated from each other. Mesenchymal apoptotic geene sets are apperent !](/Users/mac/Desktop/BCB420/A3_MetyuMelkonyan/pathway.png)
+
+
+
+
+
+
+
+The enrichment map visualiation was done by using stringent 0.05 p-value and ver permissive 0.5 FDR values. The reason why I used 0.5 for FDR is that There are more gene sets that I find to be assocaited each other. Even apoptotic genesets are related to those of viral infection genesets. This supports the presence of viral effect on pancreas cancer as well as many other cancer types.
+![ Figure 5: GeneMania gene enrichment pathway results. Most of the genes are virus related. ](/Users/mac/Desktop/BCB420/A3_MetyuMelkonyan/sapiens.png)
+
+![ Figure 6: NANS (enricled red) Sialic Acid pathway of Homo sapiens](/Users/mac/Desktop/BCB420/A3_MetyuMelkonyan/NANS.png)
+
+
+
+
+### Part 3: Post Analysis Summary
+```{r}
+library(GSA)
+gmt_file <- file.path(getwd(),"data",
+  "Human_GOBP_AllPathways_no_GO_iea_March_01_2021_symbol.gmt")
+capture.output(genesets<-
+GSA.read.gmt(gmt_file),file="gsa_load.out")
+names(genesets$genesets) <- genesets$geneset.names
+```
+
+![ p53 Signature geneset](/Users/mac/Desktop/BCB420/A3_MetyuMelkonyan/p53.png)
+
+```{r}
+expression <- read.table(file.path(getwd(),"data",
+"gene_set_sizes.tsv"),
+                header = TRUE, sep = "\t", quote="\"",
+                stringsAsFactors = FALSE)
+ranks <- read.table(file.path(getwd(),"data",
+"logarithmic_genelist.rnk"),
+                    header = TRUE, sep = "\t", quote="\"",
+                    stringsAsFactors = FALSE)
+
+```
+
+
+```{r}
+#get all the GSEA directories
+gsea_directories <- list.files(path = file.path(getwd(),"data"),
+                                "bader_lapgeneset.GseaPreranked.1679891514525")
+if(length(gsea_directories) == 1){
+gsea_dir <- file.path(getwd(),"data",gsea_directories[1]) 
+gsea_results_files <- file.path(path = gsea_dir,"edb","results.edb")
+  enr_file1 <-
+read.table(file.path(gsea_dir,gsea_results_files[1]),
+                        header = TRUE, sep = "\t", quote="\"",
+                        stringsAsFactors = FALSE,row.names=1)
+  enr_file2 <-
+read.table(file.path(gsea_dir,gsea_results_files[1]),
+                        header = TRUE, sep = "\t", quote="\"",
+                        stringsAsFactors = FALSE,row.names=1)
+}
+```
+
+```{r}
+all_enr_genesets<- c(rownames(enr_file1), rownames(enr_file2)) 
+genes_enr_gs <- c()
+for(i in 1:length(all_enr_genesets)){ current_geneset <-
+unlist(genesets$genesets[which(genesets$geneset.names %in% all_enr_genesets[i])])
+  genes_enr_gs <- union(genes_enr_gs, current_geneset)
+}
+
+
+```
+
+
+```{r}
+FDR_threshold <- 0.001
+#get the genes from the set of enriched pathwasy (no matter what threshold)
+all_sig_enr_genesets<- c(rownames(enr_file1)[
+which(enr_file1[,"FDR.q.val"]<=FDR_threshold)], rownames(enr_file2)[which(enr_file2[,"FDR.q.val"]<=FDR_threshold)]) genes_sig_enr_gs <- c()
+for(i in 1:length(all_sig_enr_genesets)){
+current_geneset <- unlist(genesets$genesets[ which(genesets$geneset.names %in% all_sig_enr_genesets[i])])
+  genes_sig_enr_gs <- union(genes_sig_enr_gs, current_geneset)
+}
+
+ genes_all_gs <- unique(unlist(genesets$genesets))
+```
+
+```{r}
+library(VennDiagram)
+A <- genes_all_gs
+B <- genes_enr_gs
+C <- expression[,1]
+png(file.path(getwd(),"data","dark_matter_overlaps.png"))
+draw.triple.venn( area1=length(A), area2=length(B), area3 =
+length(C),
+          n12 = length(intersect(A,B)), n13=length(intersect(A,C)),
+          n23 = length(intersect(B,C)),
+          n123 = length(intersect(A,intersect(B,C))),
+          category = c("all genesets","all enrichment
+results","expression"),
+          fill = c("red","green","blue"),
+)
+```
+
+
+```{r}
+genes_no_annotation <- setdiff(expression[,1], genes_all_gs)
+
+ranked_gene_no_annotation <- ranks[which(ranks[,1]
+%in% genes_no_annotation),]
+```
+
+
+### Part 4: Interpretation and detailed view of results
+
+```{r}
+
+1.Do the enrichment results support conclusions or mechanism discussed in the original paper? How do these results differ from the results you got from Assignment 2 thresholded methods ?
+
+
+
+2.Can you find evidence, i.e. publications, to support some of the results that you see. How does this evidence support your result ?
+
+```
+
