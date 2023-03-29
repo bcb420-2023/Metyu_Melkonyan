@@ -21,6 +21,7 @@ output:
 10) Sialic&cancer (@Zhou2020-ki)
 11) Reactome (@10.1093/nar/gkab1028)
 12) Sialytion (@Munkley2019-oj)
+13) Drugbank (@Wishart2006-xd)
 
 ```{r warning=FALSE, message=FALSE,eval=FALSE}
 if (!requireNamespace("GSA", quietly = TRUE)){
