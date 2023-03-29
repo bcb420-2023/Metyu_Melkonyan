@@ -61,7 +61,7 @@ I have used GSEA (4.3.2) (4) non-thresholded gene set enrichment method. I have 
 <br> The enrichment map Cytoscape visualization was done by using stringent 0.05 p-value and ver permissive 0.5 FDR values (7) The reason why I used 0.5 for FDR is that. Furthermore, Jaccard + Overlap coefficient 0.375 and combined coefficient 0.5 were used. In total there are 291 nodes (including hidden) and 763 edges (including hidden edges) in the visualization.There are more gene sets that I find to be associated each other. Even apoptotic genesets are related to those of viral infection genesets. This supports the presence of viral effect on pancreas cancer as well as many other cancer types. I created the publication ready figure by using default parameters of MCL cluster 3 max word per label, minimum word occurrence of 1, adjacent word bonus of 8 with WordCloud label algorithm. By collapsing the enrichment map I found 24 major themes in on my map. I do not observe any novel pathways that appeared after total collapsing. 
 
 ![ Figure 7: GeneMania gene enrichment pathway results. Most of the genes are virus related(8) ](/Users/mac/Desktop/BCB420/A3_MetyuMelkonyan/images/sapiens.png)
-The complete geneset GeneMania analysis to see if the genes in the respective pathways on the enrichment map are associated. I noted viral genes mostly. The noted node types
+<br> The complete geneset GeneMania analysis to see if the genes in the respective pathways on the enrichment map are associated. I noted viral genes mostly. The noted node types
 ```{r}
  Genemania <- read.csv(file=file.path(getwd(),"data","table_genemania.csv"))
 knitr::kable(Genemania, type="html")
