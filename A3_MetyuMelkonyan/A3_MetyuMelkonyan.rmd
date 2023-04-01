@@ -31,7 +31,7 @@ if (!requireNamespace("kable", quietly = TRUE)){
 ```
 
 
-### Introduction: Assignment 1 & Assignment 2
+## Introduction: Assignment 1 & Assignment 2
 
   My dataset from GEO (Gene Expression Omnibus) is GSE131222 of Transcriptional control of sub-type switching ensures adaptation and growth of pancreatic cancer. My geneset aims to see the underlying ectopic expression of GLI2 expression in human pancreatic cancer cell lines specifically looking at YAPC cells. Moreover, 1 ug/ml of Dox treatment allowed for overexpression analysis of GLI2 by measuring via RNA-seq. on Illumina hiseq 2000. The authors used TopHat and Cufflinks for quality control and later used qRT-PCR along with SYBR Green assays to measure the intensity. By concluding oncogene genes and detecting induced-higher expression values compare to  expression values 6 days before, GLI2 regulation of genes associated with basal-like sub-type switching was detected
   
@@ -40,18 +40,30 @@ if (!requireNamespace("kable", quietly = TRUE)){
   Secondly, by preliminary analyzing the differential expression of our dataset via heat map I have concluded that there is a strong difference between the treatment of GLI2 and the control cells in terms of their summarized gene expression by the model. Later, by visualizing the p-value distribution I concluded most of the oncogenes referred on the main article are clustered at the specified p-value interval. Later sample clustering summarized the gene expression difference between the treatment and the control genes. Stringently analyzing Lastly, the non-thresholded gene enrichment map both allowed me to observe genes that are passing our permissive FDR values as well as defined the pathways that are found to be associated with oncogenes. These pathways are then altered visualized and used to conclude that by doing all the analysis on assignment 2, I was able to differentiate the genes that are related to sub-type switching (EMT) and those that are not (non-EMT). Finally, I have separated two data from each other and obtained a ranked gene list based additionally.
   These analyses taught me how to select a dataset, clean a dataset, normalize it, analyze to what extent the genes are expressed differentially from one another, and see how the genes are interacting genes in a given pathway or a given gene set. Also, finally, validate the author's conclusion or come up with my conclusion and promote further research in the area. In this final assignment of mine, I will be concluding my analyses with enrichment mapping by using Cytoscape and its apps as well as conservatively geneset.
 
-### Part 1: Non-thresholded Gene set Enrichment Analysis
+## Part 1: Non-thresholded Gene set Enrichment Analysis
 
 I have used GSEA (4.3.2) (4) non-thresholded gene set enrichment method. I have used the Bader Lab geneset of Human_GOBP_AllPathways_no_GO_iea_March_01_2021_symbol.gmt including no HUGO symbols and IEA symbols published on March 1, 2021. It was released in 2023 by Human MiSigDB. I used no collapse to remap gene symbols to avoid confusion. 200 max gene size and 15 min gene size to have more stringent values. I used 1000 permutations that allowed for a shorter running time. Therefore, GSEA resulted in more stringent non-EMT values that are shown to be enriched. There are pathways of genes that are known to be involved in apoptosis. The top gene set at the positive geneset is TRANSCRIPTIONAL REGULATION BY SMALL RNAS%REACTOME%R-HSA-5578749.3 with 0.784 FDR-value and 0.001 Nominal p-values and 0.98 ES score. The top gene set for negative is PHOSPHOLIPASES%HUMANCYC%LIPASYN-PWY with 0 FDR and 0 p-value and-0.65 ES. This makes sense because, with my previous results that my log CPM is always negative, there are no positive log CPM values. This was my previous hypothesis that almost every gene treated showed higher expression with the treatments the authors did to induce oncogenic roles. Most of the pathways are viral infection pathways. Furthermore, some viruses stimulate pancreas cancer and liver cancer as well such as chronic Hepatitis C and chronic Hepatitis B (6) A significant proportion of these pathways are systematic disease-causing viruses such as Epstein Barr virus and HIV-1 virus. The negative results contain more oncogenic pathways such that the apoptosis and sialic acid synthesis genesets are more prevalent as opposed to positive. There is the separation of oncogenic pathways between positive and negative. The second assignment gene enrichment results were more clear in terms of gene pathway role. The difference between EMT genes vs non-EMT genes is more apparent in the thresholded analysis. the gene enrichment results in the non-thresholded analysis are more scarce and do not give significantly enriched results. Even though my parameters are stringent, I am not getting pathways that are adequate in terms of their role.
 
 
 ![ Figure 1: GSEA Enrichment Results](/Users/mac/Desktop/BCB420/A3_MetyuMelkonyan/images/enrichment.png)
 
+GSE results indicate there are 4703 upregualted gene sets and 38 down regulated gene sets.
+
+#### Upregualted
+* 12 gene sets < 25% FDR
+* 85 gene sets < 1% p-value
+* 304 gene sets < 5% nominal p-value
+
+#### Downregulated
+* 4 gene sets < 25 % FDR
+* 9 gene sets < 1% p-value
+* 9 gene sets < 5% p-value
+
 ![ Figure 2: Negative Enrichment Results](/Users/mac/Desktop/BCB420/A3_MetyuMelkonyan/images/neg.png)
 
 ![ Figure 3: Positive Enrichment Results](/Users/mac/Desktop/BCB420/A3_MetyuMelkonyan/images/pos.png)
 
-### Part 2: Visualize your Gene set Enrichment Analysis in Cytoscape
+## Part 2: Visualize your Gene set Enrichment Analysis in Cytoscape
 
 ![ Figure 4: Cytoscape Pathway Enrichment Visualization. Both apoptotic and viral geneset are separated from each other. Mesenchymal apoptotic geene sets are apperent](/Users/mac/Desktop/BCB420/A3_MetyuMelkonyan/images/pathway.png)
 ![Figure 5:Publication ready figure of Gene Enrichment visualization (7)](/Users/mac/Desktop/BCB420/A3_MetyuMelkonyan/images/publication.png)
@@ -67,7 +79,7 @@ I have used GSEA (4.3.2) (4) non-thresholded gene set enrichment method. I have 
 knitr::kable(Genemania, type="html")
 ```
 
-### Part 3: Post Analysis Summary
+## Part 3: Post Analysis Summary
 ```{r}
 library(GSA)
 gmt_file <- file.path(getwd(),"data",
@@ -91,7 +103,7 @@ The sialic acid pathway is one of the pathways that is known to be affecting tum
 ![ Figure 10: Oncogenic role of Sialic acid Metabolism (10)](/Users/mac/Desktop/BCB420/A3_MetyuMelkonyan/images/sialicacid.jpg)
 
 
-### Part 4: Interpretation and detailed view of results
+## Part 4: Interpretation and detailed view of results
 
 1.Do the enrichment results support conclusions or mechanism discussed in the original paper? How do these results differ from the results you got from Assignment 2 thresholded methods ?
 
@@ -102,6 +114,11 @@ The sialic acid pathway is one of the pathways that is known to be affecting tum
 (9) discusses p53 manipulation by oncogenic viruses and shows a clear picture of possible non-oncogenic viruses. my analysis results showed clear indications of HIV, E1b(Ebstein Barr virus) effect on cell apoptosis. Also, cellular degradation pathways are partially visualized on my enrichment map. They are also associated with viral metabolic activity such as HIV (shown on the degradation side)(9)
 Viral activity is then assocaited with sialic acid as this paper discusses and mentions the virus effect on cancer (12)
 
+#### Conclusion
+
+In the third part of the assignment the post-analysis of the GSEA results allowed to see the direct interaction between different viral cancerous genes. This paves a path for further research in viral effect on the pancreas cancer, by strengthening the conclusion that the authors made. The results from g:Profile and the GSEA correlate in a way that both of these analysis do have similar numbers of genes lower than 1% p-value. This makes sense because both of these analysis indicate the conclusion of hidden viral genes that the author did not show in their analysis.
+
+
 ![ Figure 11: Oncogenic role of Sialic acid Metabolism(9)](/Users/mac/Desktop/BCB420/A3_MetyuMelkonyan/images/cancer.jpeg)
 
-### Reference
+## Reference
