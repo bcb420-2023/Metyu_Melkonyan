@@ -59,16 +59,17 @@ GSE results indicate there are 4703 upregualted gene sets and 38 down regulated 
 * 9 gene sets < 1% p-value
 * 9 gene sets < 5% p-value
 
-![ Figure 2: Negative Enrichment Results](/Users/mac/Desktop/BCB420/A3_MetyuMelkonyan/images/neg.png)
+![ Figure 2: Negative Enrichment Results. It shows PHOSPHOLIPASES%HUMANCYC%LIPASYN-PWY is the top gene set](/Users/mac/Desktop/BCB420/A3_MetyuMelkonyan/images/neg.png)
 
-![ Figure 3: Positive Enrichment Results](/Users/mac/Desktop/BCB420/A3_MetyuMelkonyan/images/pos.png)
+![ Figure 3: Positive Enrichment Results. It shows that the TRANSCRIPTIONAL REGULATION BY SMALL RNAS%REACTOME%R-HSA-5578749.3 is the top gene set](/Users/mac/Desktop/BCB420/A3_MetyuMelkonyan/images/pos.png)
 
 ## Part 2: Visualize your Gene set Enrichment Analysis in Cytoscape
 
 ![ Figure 4: Cytoscape Pathway Enrichment Visualization. Both apoptotic and viral geneset are separated from each other. Mesenchymal apoptotic geene sets are apperent](/Users/mac/Desktop/BCB420/A3_MetyuMelkonyan/images/pathway.png)
-![Figure 5:Publication ready figure of Gene Enrichment visualization (7)](/Users/mac/Desktop/BCB420/A3_MetyuMelkonyan/images/publication.png)
 
- ![Figure 6:Publication ready figure of Gene Enrichment visualization](/Users/mac/Desktop/BCB420/A3_MetyuMelkonyan/images/cluster.png)
+![Figure 5:Publication-ready-figure of Gene Enrichment visualization (7)](/Users/mac/Desktop/BCB420/A3_MetyuMelkonyan/images/publication.png)
+
+ ![Figure 6:Collapsed themed enrhicment map figure of Gene Enrichment visualization](/Users/mac/Desktop/BCB420/A3_MetyuMelkonyan/images/cluster.png)
 
 <br> The enrichment map Cytoscape visualization was done by using stringent 0.05 p-value and ver permissive 0.5 FDR values (7) The reason why I used 0.5 for FDR is that. Furthermore, Jaccard + Overlap coefficient 0.375 and combined coefficient 0.5 were used. In total there are 291 nodes (including hidden) and 763 edges (including hidden edges) in the visualization. There are more gene sets that I find to be associated with each other. Even apoptotic genesets are related to those of viral infection genesets. This supports the presence of viral effects on pancreas cancer as well as many other cancer types. I created the publication-ready figure by using default parameters of MCL cluster 3 max word per label, minimum word occurrence of 1, and adjacent word bonus of 8 with WordCloud label algorithm. By collapsing the enrichment map I found 24 major themes on my map. I do not observe any novel pathways that appeared after total collapsing. 
 
