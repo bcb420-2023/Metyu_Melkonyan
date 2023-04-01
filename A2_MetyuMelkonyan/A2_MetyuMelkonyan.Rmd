@@ -317,8 +317,8 @@ colnames(qlf_tophits_withgn)[2] <- "Logarithmic"
 write.table(x=qlf_tophits_withgn,file=file.path("data","logarithmic_genelist.rnk"),
     sep = "\t",append=FALSE,row.names = FALSE,col.names = FALSE,quote = FALSE)
 ```
-### Part 16: GProfiler for Upregulation and Downregulation pathway analysis
-The GProfiler analysis includes BH correction methods (FDR). I sticked using the same method because I used the same type of method on my previous analysis on FDR portion. For both upregualted and the downregulated genes I have used GO:BP (2022-12-04), Reactome, and WikiPathways( for annotation. These annotations allows for better asessment of my Upregualted genes in terms of defining the biologic pathways they are invovled in.
+### Part 16: g:Profiler for Upregulation and Downregulation pathway analysis
+The g:Profiler analysis includes BH correction methods (FDR). I sticked using the same method because I used the same type of method on my previous analysis on FDR portion. For both upregualted and the downregulated genes I have used GO:BP (2022-12-04), Reactome, and WikiPathways( for annotation. These annotations allows for better asessment of my Upregualted genes in terms of defining the biologic pathways they are invovled in.
 
 ```{r message=FALSE}
 Upregulated_genes <- read.table(file=file.path(getwd(),"data" ,"GLI2_emt_Genes.txt"),header = TRUE, stringsAsFactors = FALSE, check.names = FALSE)
@@ -342,7 +342,7 @@ Downregulated_Gprofiler_validated <- gprofiler2::gost(query = Downregulated_gene
                                   ordered_quer = FALSE,
                                   source = c("GO:BP", "REAC", "WP"))
 ```
-### Part 17: Subsetting the Gprofiler downregulated and upregualted genes
+### Part 17: Subsetting the g:Profiler downregulated and upregualted genes
 After subsetting I do have 771 genes that are down regulated. Down regualted genes are invovled in common biological pathways that are not involved in cancerous activities.
 ```{r message=FALSE}
 Downregulated_genes_filtered <- data.frame(
@@ -384,7 +384,7 @@ gprofiler2::gostplot(Upregulated_Gprofiler_validated) %>% plotly::layout(title =
 gprofiler2::gostplot(Downregulated_Gprofiler_validated) %>% plotly::layout(title = "Downregulated genes ", font = list(size = 10))
 ```
 
-### Part 19: GProfiler Analyses for the merged dataset
+### Part 19: g:Profiler Analyses for the merged dataset
 ```{r message=FALSE}
 Complete_Gprofiler_Analyses <- gprofiler2::gost(query = merged_hits$Gene_symbol, 
                                   organism = "hsapiens", 
