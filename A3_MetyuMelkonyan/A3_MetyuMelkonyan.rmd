@@ -49,7 +49,7 @@ I have used GSEA (4.3.2) (4) non-thresholded gene set enrichment method. I have 
 
 GSE results indicate there are 4703 upregualted gene sets and 38 down regulated gene sets.
 
-#### Upregualted
+#### Upregulated
 * 12 gene sets < 25% FDR
 * 85 gene sets < 1% p-value
 * 304 gene sets < 5% nominal p-value
