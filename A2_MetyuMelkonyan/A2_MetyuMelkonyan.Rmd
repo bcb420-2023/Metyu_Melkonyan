@@ -343,7 +343,7 @@ Downregulated_Gprofiler_validated <- gprofiler2::gost(query = Downregulated_gene
                                   source = c("GO:BP", "REAC", "WP"))
 ```
 ### Part 17: Subsetting the g:Profiler downregulated and upregualted genes
-After subsetting I do have 771 genes that are down regulated. Down regualted genes are invovled in common biological pathways that are not involved in cancerous activities.
+After subsetting I do have 771 genes that are down regulated. Down regualted genes are involved in common biological pathways that are not involved in cancerous activities.
 ```{r message=FALSE}
 Downregulated_genes_filtered <- data.frame(
   term_name = Downregulated_Gprofiler_validated$result$term_name[Downregulated_Gprofiler_validated$result$term_size < 200 &                                                                         Downregulated_Gprofiler_validated$result$term_size > 1],
