@@ -4,9 +4,9 @@ author: "Metyu Melkonyan"
 date: "2023-03-26"
 bibliography: A3.bib
 output: 
-  html_notebook:
-    toc: yes
   html_document:
+    toc: yes
+  html_notebook:
     toc: yes
 ---
 1) R language (@r
@@ -23,6 +23,7 @@ output:
 12) Sialytion (@Munkley2019-oj)
 13) Drugbank (@Wishart2006-xd)
 14) EnrichmentMap (@Merico2010-vg)
+15) AutoAnnotte (@PMID)
 
 ```{r warning=FALSE, message=FALSE,eval=FALSE}
 if (!requireNamespace("GSA", quietly = TRUE)){
@@ -34,12 +35,12 @@ if (!requireNamespace("kable", quietly = TRUE)){
 
 ## Introduction: Assignment 1 & Assignment 2
 
-  My dataset from GEO (Gene Expression Omnibus) is GSE131222 of Transcriptional control of sub-type switching ensures adaptation and growth of pancreatic cancer. My gene set aims to see the underlying ectopic expression of GLI2 expression in human pancreatic cancer cell lines specifically looking at YAPC cells. Moreover, 1 ug/ml of Dox treatment allowed for overexpression analysis of GLI2 by measuring via RNA-seq. on Illumina hiseq 2000. The authors used TopHat and Cufflinks for quality control and later used qRT-PCR along with SYBR Green assays to measure the intensity. By concluding oncogene genes and detecting induced-higher expression values compare to  expression values 6 days before, GLI2 regulation of genes associated with basal-like sub-type switching was detected
+  My dataset from GEO (Gene Expression Omnibus) is GSE131222 of Transcriptional control of sub-type switching ensures adaptation and growth of pancreatic cancer. My gene set aims to see the underlying ectopic expression of GLI2 expression in human pancreatic cancer cell lines specifically looking at YAPC cells. Moreover, 1 ug/ml of Dox treatment allowed for over expression analysis of GLI2 by measuring via RNA-seq. on Illumina hiseq 2000. The authors used TopHat and Cufflinks for quality control and later used qRT-PCR along with SYBR Green assays to measure the intensity. By concluding oncogene genes and detecting induced-higher expression values compare to  expression values 6 days before, GLI2 regulation of genes associated with basal-like sub-type switching was detected
   
-  Firstly, the data set I obtained from GEO was cleaned and filtered based on duplication. The normalized values of genes that are mostly miRNA genes are eliminated from the gene set. There have been instances that one row of expression has multiple genes associated. This was later found out on the second assignment where we believe this did not cause any problem, due to our limited analysis in the first assignment. Later I analyzed the dispersion among treatments of both triplicate controls that contain empty plasmid of GLI2 and experiments that contain inducible GLI2 plasmid! Since there might be a discrepancy among the gene annotation, which can cause a misunderstanding of our later analysis, I validated my HUGO gene symbols. Furthermore, by identifying HUGO symbols that are respective or similar to those that our clean data set contains. I was able to conclude that my dataset is clean, contains no duplicates as well as ready for the later analyses which are normalization, differential expression calculation, non-thresholded & thresholded gene enrichment analyses, fold expression based on the fitted model of GLI2 expression set, and finally for the enrichment mapping with post analysis.
+  Firstly, the data set I obtained from GEO was cleaned and filtered based on duplication. The normalized values of genes that are mostly miRNA genes are eliminated from the gene set. There have been instances that one row of expression has multiple genes associated. This was later found out on the second assignment where we believe this did not cause any problem, due to our limited analysis in the first assignment. Later I analyzed the dispersion among treatments of both triplicate controls that contain empty plasmid of GLI2 and experiments that contain inducible GLI2 plasmid! Since there might be a discrepancy among the gene annotation, which can cause a misunderstanding of our later analysis, I validated my HUGO gene symbols. Furthermore, by identifying HUGO symbols that are respective or similar to those that our clean data set contains. I was able to conclude that my data set is clean, contains no duplicates as well as ready for the later analyses which are normalization, differential expression calculation, non-thresholded & thresholded gene enrichment analyses, fold expression based on the fitted model of GLI2 expression set, and finally for the enrichment mapping with post analysis.
   
-  Secondly, by preliminary analyzing the differential expression of our dataset via heat map I have concluded that there is a strong difference between the treatment of GLI2 and the control cells in terms of their summarized gene expression by the model. Later, by visualizing the p-value distribution I concluded most of the oncogenes referred on the main article are clustered at the specified p-value interval. Later sample clustering summarized the gene expression difference between the treatment and the control genes. Stringently analyzing Lastly, the non-thresholded gene enrichment map both allowed me to observe genes that are passing our permissive FDR values as well as defined the pathways that are found to be associated with oncogenes. These pathways are then altered visualized and used to conclude that by doing all the analysis on assignment 2, I was able to differentiate the genes that are related to sub-type switching (EMT) and those that are not (non-EMT). Finally, I have separated two data from each other and obtained a ranked gene list based additionally.
-  These analyses taught me how to select a dataset, clean a dataset, normalize it, analyze to what extent the genes are expressed differentially from one another, and see how the genes are interacting genes in a given pathway or a given gene set. Also, finally, validate the author's conclusion or come up with my conclusion and promote further research in the area. In this final assignment of mine, I will be concluding my analyses with enrichment mapping by using Cytoscape and its apps as well as conservatively gene set.
+  Secondly, by preliminary analyzing the differential expression of our data set via heat map I have concluded that there is a strong difference between the treatment of GLI2 and the control cells in terms of their summarized gene expression by the model. Later, by visualizing the p-value distribution I concluded most of the oncogenes referred on the main article are clustered at the specified p-value interval. Later sample clustering summarized the gene expression difference between the treatment and the control genes. Stringently analyzing Lastly, the non-thresholded gene enrichment map both allowed me to observe genes that are passing our permissive FDR values as well as defined the pathways that are found to be associated with oncogenes. These pathways are then altered visualized and used to conclude that by doing all the analysis on assignment 2, I was able to differentiate the genes that are related to sub-type switching (EMT) and those that are not (non-EMT). Finally, I have separated two data from each other and obtained a ranked gene list based additionally.
+  These analyses taught me how to select a data set, clean a data set, normalize it, analyze to what extent the genes are expressed differentially from one another, and see how the genes are interacting genes in a given pathway or a given gene set. Also, finally, validate the author's conclusion or come up with my conclusion and promote further research in the area. In this final assignment of mine, I will be concluding my analyses with enrichment mapping by using Cytoscape and its apps as well as conservatively gene set.
 
 ## Part 1: Non-thresholded Gene set Enrichment Analysis
 
@@ -95,26 +96,28 @@ Finally, the quantitative difference between the thresholded and the non-thresho
 ```{r}
 knitr::include_graphics("/Users/mac/Desktop/BCB420/A3_MetyuMelkonyan/images/pathway.png")
 ```
-**Figure 5 Preliminary Cytoscape Pathway Enrichment Visualization:** Both apoptotic and viral gene set are separated from each other. Mesenchymal apoptotic geene sets are apperent. Both upregualted (Red) and downregualted (Blue) gene sets are observed. This includes the whole enrichment map.
+
+**Figure 5 Preliminary Cytoscape Pathway Enrichment Visualization:** Both apoptotic and viral gene set are separated from each other. Mesenchymal apoptotic gene sets are apparent. Both upregualted (Red) and downregualted (Blue) gene sets are observed. This includes the whole enrichment map.
 
 The enrichment map Cytoscape visualization was done by using stringent 0.05 p-value and ver permissive 0.5 FDR values (7) The reason why I used 0.5 for FDR is that. Furthermore, Jaccard + Overlap coefficient 0.375 and combined coefficient 0.5 were used. In total there are 291 nodes (including hidden) and 763 edges (including hidden edges) in the visualization. There are more gene sets that I find to be associated with each other.
 
 ```{r}
 knitr::include_graphics("/Users/mac/Desktop/BCB420/A3_MetyuMelkonyan/images/publication.png")
 ```
-**Figure 6 Publication Ready Annotation Figure of Gene Enrichment visualization (7)**: By annotating and analyzing in terms of positivity and negativity the enrichment visualization showed up regulated gene sets to be collapsed in viral export RNA theme. Most of the down regulated are not assocaited with one another.
+
+**Figure 6 Publication Ready Annotation Figure of Gene Enrichment visualization (7)**: By annotating and analyzing in terms of positivity and negativity the enrichment visualization showed up regulated gene sets to be collapsed in viral export RNA theme. Most of the down regulated are not associated with one another.
 
 ```{r}
 knitr::include_graphics("/Users/mac/Desktop/BCB420/A3_MetyuMelkonyan/images/parameters.png")
 ```
 
-**Figure 7 Annotation parameters**: The Default parameters are used due to small visualization and for proper observation. The annotations fit the model as there is strong evidence of the previous ceonnections among cancer and viral genes indicated.
+**Figure 7 Annotation parameters**: The Default parameters are used due to small visualization and for proper observation. The annotations fit the model as there is strong evidence of the previous connections among cancer and viral genes indicated.
 
 ```{r}
 knitr::include_graphics("/Users/mac/Desktop/BCB420/A3_MetyuMelkonyan/images/cluster.png")
 ```
 
-**Figure 8 (Extra!)Publication ready figure of Gene Enrichment visualization**: Collapsed themes indicatethat there is indeed realationship between abortive viral RNA gene sets and the export viral RNA gene set.
+**Figure 8 (Extra!)Publication ready figure of Gene Enrichment visualization**: Collapsed themes indicate that there is indeed relationship between abortive viral RNA gene sets and the export viral RNA gene set.
 
 Apoptotic gene sets are related to those of viral infection gene sets. This supports the presence of viral effects on pancreas cancer as well as many other cancer types. I created the publication-ready figure by using default parameters of MCL cluster 3 max word per label, minimum word occurrence of 1, and adjacent word bonus of 8 with WordCloud label algorithm. By collapsing the enrichment map I found 24 major themes on my map. I do not observe any novel pathways that appeared after total collapsing. 
 
@@ -122,6 +125,7 @@ Apoptotic gene sets are related to those of viral infection gene sets. This supp
 knitr::include_graphics("/Users/mac/Desktop/BCB420/A3_MetyuMelkonyan/images/sapiens.png")
 
 ```
+
 **Figure 9 (Extra!) GeneMania gene enrichment pathway results. Most of the genes are virus related(8)**
 
 <br> The complete gene set GeneMania analysis to see if the genes in the respective pathways on the enrichment map are associated. I noted viral genes mostly. The noted node types
@@ -146,7 +150,8 @@ knitr::kable(head(genesets$geneset.names), type="html")
 ```{r}
 knitr::include_graphics("/Users/mac/Desktop/BCB420/A3_MetyuMelkonyan/images/p53.png")
 ```
-**Figure 9 Signature gene set p53 against all gene sets enriched:** Post analysis coefficient of 0.25 Mann-Whitney cut-off (Two-sided) was used. Post-analysis results also show that p63 is mainly involved in reactive oxygen species (ROS) metabolism. ROS are known to be tumour growth promoters which then cause EMT in different human tissues as well as trigger cancer of different type.
+
+**Figure 10 (Extra!) Signature gene set p53 against all gene sets enriched:** Post analysis coefficient of 0.25 Mann-Whitney cut-off (Two-sided) was used. Post-analysis results also show that p63 is mainly involved in reactive oxygen species (ROS) metabolism. ROS are known to be tumour growth promoters which then cause EMT in different human tissues as well as trigger cancer of different type.
 
 
 <br> The post analysis includes the signature gene set from Bader gene sets (5)  of Human symbols of Drugbank approved gene set. p53 is an oncogene and it is involved in many pathways that are known to be causing different types of cancers. P53 is associated with viral pathways as well as some oncogenic pathways. Therefore, it is safe to assume that the viral effect on oncogenic genes for triggering tumours is indeed true. 
@@ -155,16 +160,17 @@ knitr::include_graphics("/Users/mac/Desktop/BCB420/A3_MetyuMelkonyan/images/p53.
 knitr::include_graphics("/Users/mac/Desktop/BCB420/A3_MetyuMelkonyan/images/NANS.png")
 ```
 
-**Figure 10: NANS (enricled red) Sialic Acid pathway of Homo sapiens(11)**
+
+**Figure 11 NANS (encircled red) Sialic Acid pathway of Homo sapiens(11)**
 
 
-The sialic acid pathway is one of the pathways that is known to be affecting tumour proliferation, cell growth, cell detachment and as a result metastasis. It is known to be highly expressed by the cancer cell. Moreover, cancer-triggered apoptosis is one of the results of sialic acid. Neu5Ac 9-phosphate synthase (NANS)( encircled red) is an enzyme in sialic acid metabolism.NANS' role in sialic acid pathways on the figure. Also, glycolipid-bound sialic acids are highly found in cancer cells. Finally, by having high expression levels and visualized on the pathway analysis NANS has the potential to be an oncogene. The role of sialic acid differs as there is an interaction between cancer genes and the viral genes, I do hypothesize that cancer causing viruses are an important factor in high sialic acid levels in pancreas cancer.
+The sialic acid pathway is one of the pathways that is known to be affecting tumor proliferation, cell growth, cell detachment and as a result metastasis. It is known to be highly expressed by the cancer cell. Moreover, cancer-triggered apoptosis is one of the results of sialic acid. Neu5Ac 9-phosphate synthase (NANS)( encircled red) is an enzyme in sialic acid metabolism.NANS' role in sialic acid pathways on the figure. Also, glycolipid-bound sialic acids are highly found in cancer cells. Finally, by having high expression levels and visualized on the pathway analysis NANS has the potential to be an oncogene. The role of sialic acid differs as there is an interaction between cancer genes and the viral genes, I do hypothesize that cancer causing viruses are an important factor in high sialic acid levels in pancreas cancer.
 
 ```{r}
 knitr::include_graphics("/Users/mac/Desktop/BCB420/A3_MetyuMelkonyan/images/sialicacid.jpg")
 ```
 
-**Figure 11: Oncogenic role of Sialic acid Metabolism (10)**
+**Figure 12 Oncogenic role of Sialic acid Metabolism (10)**
 
 ## Part 4: Interpretation and detailed view of results
 
@@ -185,7 +191,7 @@ In the third part of the assignment the post-analysis of the GSEA results allowe
 knitr::include_graphics("/Users/mac/Desktop/BCB420/A3_MetyuMelkonyan/images/cancer.jpeg")
 ```
 
-**Figure 12: Oncogenic role of Sialic acid Metabolism(9)**
+**Figure 13: Oncogenic role of Sialic acid Metabolism(9)**
 
 
 
