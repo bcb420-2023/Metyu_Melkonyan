@@ -130,14 +130,14 @@ knitr::include_graphics("/Users/mac/Desktop/BCB420/A3_MetyuMelkonyan/images/sapi
 **Figure 9 (Extra!) GeneMania gene enrichment pathway results:** Most of the genes are virus related (Zuberi et al, 2013) The complete gene set GeneMania analysis to see if the genes in the respective pathways on the enrichment map are associated. I noted viral genes mostly. The yellow node is the cancer gene assocaited with viral genes (black)
 
 
-```{r,fig.align='center', out.width='100%'}
+```{r}
  Genemania <- read.csv(file=file.path(getwd(),"data","table_genemania.csv"))
 knitr::kable(Genemania, type="html")
 ```
 
 
 ## Part 3: Post Analysis Summary
-```{r,fig.align='center', out.width='100%'}
+```{r}
 library(GSA)
 gmt_file <- file.path(getwd(),"data",
   "Human_GOBP_AllPathways_no_GO_iea_March_01_2021_symbol.gmt")
