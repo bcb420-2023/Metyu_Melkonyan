@@ -35,7 +35,7 @@ if (!requireNamespace("kable", quietly = TRUE)){
 
 ## Introduction: Assignment 1 & Assignment 2
 
-  My dataset from GEO (Gene Expression Omnibus) is GSE131222 of Transcriptional control of sub-type switching ensures adaptation and growth of pancreatic cancer. My gene set aims to see the underlying ectopic expression of GLI2 expression in human pancreatic cancer cell lines specifically looking at YAPC cells. Moreover, 1 ug/ml of Dox treatment allowed for over expression analysis of GLI2 by measuring via RNA-seq. on Illumina hiseq 2000. The authors used TopHat and Cufflinks for quality control and later used qRT-PCR along with SYBR Green assays to measure the intensity. By concluding oncogene genes and detecting induced-higher expression values compare to  expression values 6 days before, GLI2 regulation of genes associated with basal-like sub-type switching was detected
+  My data set from GEO (Gene Expression Omnibus) is GSE131222 of Transcriptional control of sub-type switching ensures adaptation and growth of pancreatic cancer. My gene set aims to see the underlying ectopic expression of GLI2 expression in human pancreatic cancer cell lines specifically looking at YAPC cells. Moreover, 1 ug/ml of Dox treatment allowed for over expression analysis of GLI2 by measuring via RNA-seq. on Illumina hiseq 2000. The authors used TopHat and Cufflinks for quality control and later used qRT-PCR along with SYBR Green assays to measure the intensity. By concluding oncogene genes and detecting induced-higher expression values compare to  expression values 6 days before, GLI2 regulation of genes associated with basal-like sub-type switching was detected
   
   Firstly, the data set I obtained from GEO was cleaned and filtered based on duplication. The normalized values of genes that are mostly miRNA genes are eliminated from the gene set. There have been instances that one row of expression has multiple genes associated. This was later found out on the second assignment where we believe this did not cause any problem, due to our limited analysis in the first assignment. Later I analyzed the dispersion among treatments of both triplicate controls that contain empty plasmid of GLI2 and experiments that contain inducible GLI2 plasmid! Since there might be a discrepancy among the gene annotation, which can cause a misunderstanding of our later analysis, I validated my HUGO gene symbols. Furthermore, by identifying HUGO symbols that are respective or similar to those that our clean data set contains. I was able to conclude that my data set is clean, contains no duplicates as well as ready for the later analyses which are normalization, differential expression calculation, non-thresholded & thresholded gene enrichment analyses, fold expression based on the fitted model of GLI2 expression set, and finally for the enrichment mapping with post analysis.
   
@@ -49,12 +49,13 @@ if (!requireNamespace("kable", quietly = TRUE)){
 knitr::include_graphics("/Users/mac/Desktop/BCB420/A3_MetyuMelkonyan/images/GSEA.png")
 ```
 
-**Figure 1 GSEA running on Pre-ranked Gene List Panel**
 
-I have used GSEA (4.3.2) (4) non-thresholded gene set enrichment method. I have used the Bader Lab gene set of Human_GOBP_AllPathways_no_GO_iea_March_01_2021_symbol.gmt including no HUGO symbols and IEA symbols published on March 1, 2021. It was released in 2023 by Human MiSigDB. I used no collapse to remap gene symbols to avoid confusion. 200 max gene size and 15 min gene size to have more stringent values. I used 1000 permutations that allowed for a shorter running time. Therefore, GSEA resulted in more stringent non-EMT values that are shown to be enriched. There are pathways of genes that are known to be involved in apoptosis. This makes sense because, with my previous results that my log CPM is always negative, there are no positive log CPM values. This was my previous hypothesis that almost every gene treated showed higher expression with the treatments the authors did to induce oncogenic roles. 
+**Figure 1 GSEA running on Pre-ranked Gene List Panel:** I used no collapse to remap gene symbols to avoid confusion. 200 max gene size and 15 min gene size to have more stringent values. I used 1000 permutations that allowed for a shorter running time.
+
+I have used GSEA (4.3.2) (Merico et al, 2010) non-thresholded gene set enrichment method. I have used the Bader Lab gene set of Human_GOBP_AllPathways_no_GO_iea_March_01_2021_symbol.gmt including no HUGO symbols and IEA symbols published on March 1, 2021. It was released in 2023 by Human MiSigDB. Therefore, GSEA resulted in more stringent non-EMT values that are shown to be enriched. There are pathways of genes that are known to be involved in apoptosis. This makes sense because, with my previous results that my log CPM is always negative, there are no positive log CPM values. This was my previous hypothesis that almost every gene treated showed higher expression with the treatments the authors did to induce oncogenic roles. 
 
 
-```{r}
+```{r, fig.align='center', out.width='100%'}
 knitr::include_graphics("/Users/mac/Desktop/BCB420/A3_MetyuMelkonyan/images/enrichment.png")
 ```
 
@@ -70,7 +71,7 @@ knitr::include_graphics("/Users/mac/Desktop/BCB420/A3_MetyuMelkonyan/images/enri
 * 9 gene sets < 1% p-value
 * 9 gene sets < 5% p-value
 
-```{r}
+```{r, fig.align='center', out.width='100%'}
 knitr::include_graphics("/Users/mac/Desktop/BCB420/A3_MetyuMelkonyan/images/neg.png")
 ```
 
@@ -86,57 +87,57 @@ knitr::include_graphics("/Users/mac/Desktop/BCB420/A3_MetyuMelkonyan/images/pos.
 
 There are pathways of genes that are known to be involved in apoptosis. This makes sense because, with my previous results that my log CPM is always negative, there are no positive log CPM values. This was my previous hypothesis that almost every gene treated showed higher expression with the treatments the authors did to induce oncogenic roles. 
 
-Most of the pathways are viral infection pathways. Furthermore, some viruses stimulate pancreas cancer and liver cancer as well such as chronic Hepatitis C and chronic Hepatitis B (6) A significant proportion of these pathways are systematic disease-causing viruses such as Epstein Barr virus and HIV-1 virus. The negative results contain more oncogenic pathways such that the apoptosis and sialic acid synthesis gene sets are more prevalent as opposed to positive. There is the separation of oncogenic pathways between positive and negative. The second assignment gene enrichment results were more clear in terms of gene pathway role. The difference between EMT genes vs non-EMT genes is more apparent in the thresholded analysis. the gene enrichment results in the non-thresholded analysis are more scarce and do not give significantly enriched results. Even though my parameters are stringent, I am not getting pathways that are adequate in terms of their role.
+Most of the pathways are viral infection pathways. Furthermore, some viruses stimulate pancreas cancer and liver cancer as well such as chronic Hepatitis C and chronic Hepatitis B (Kamiza et al, 2022) A significant proportion of these pathways are systematic disease-causing viruses such as Epstein Barr virus and HIV-1 virus. The negative results contain more oncogenic pathways such that the apoptosis and sialic acid synthesis gene sets are more prevalent as opposed to positive. There is the separation of oncogenic pathways between positive and negative. The second assignment gene enrichment results were more clear in terms of gene pathway role. The difference between EMT genes vs non-EMT genes is more apparent in the thresholded analysis. the gene enrichment results in the non-thresholded analysis are more scarce and do not give significantly enriched results. Even though my parameters are stringent, I am not getting pathways that are adequate in terms of their role.
 
-Finally, the quantitative difference between the thresholded and the non-thresholded is the the thresholded analysis has 771 downregulated genes sets that are less than 0.001 p value and there are 1128 upregulated gene sets. The difference between non-threholded and thresholded is high as 4703 upregualted genes (non-thresholded) - 1128 upregulated genes (thresholded) = 3575 gene sets. The downregualted gene set difference is more substantial (733) genesets more in thresholded analysis. 
+Finally, the quantitative difference between the thresholded and the non-thresholded is the the thresholded analysis has 771 downregulated genes sets that are less than 0.001 p value and there are 1128 upregulated gene sets. It is not a straight forward comparison because the difference between non-threholded and thresholded is high as 4703 upregulated genes (non-thresholded) - 1128 upregulated genes (thresholded) = 3575 gene sets.Also, the downregulated gene set difference is more substantial (733) gene sets more in thresholded analysis. 
 
 
 ## Part 2: Visualize your Gene set Enrichment Analysis in Cytoscape
 
-```{r}
+```{r, fig.align='center', out.width='100%'}
 knitr::include_graphics("/Users/mac/Desktop/BCB420/A3_MetyuMelkonyan/images/pathway.png")
 ```
 
-**Figure 5 Preliminary Cytoscape Pathway Enrichment Visualization:** Both apoptotic and viral gene set are separated from each other. Mesenchymal apoptotic gene sets are apparent. Both upregualted (Red) and downregualted (Blue) gene sets are observed. This includes the whole enrichment map.
+**Figure 5 Preliminary Cytoscape Pathway Enrichment Visualization:** Both apoptotic and viral gene set are separated from each other. Mesenchymal apoptotic gene sets are apparent. Both upregulated (Red) and downregulated (Blue) gene sets are observed. This includes the whole enrichment map.
 
-The enrichment map Cytoscape visualization was done by using stringent 0.05 p-value and ver permissive 0.5 FDR values (7) The reason why I used 0.5 for FDR is that. Furthermore, Jaccard + Overlap coefficient 0.375 and combined coefficient 0.5 were used. In total there are 291 nodes (including hidden) and 763 edges (including hidden edges) in the visualization. There are more gene sets that I find to be associated with each other.
+The enrichment map Cytoscape visualization was done by using stringent 0.05 p-value and ver permissive 0.5 FDR values (Kamiza et al. 2022) The reason why I used 0.5 for FDR is that. Furthermore, Jaccard + Overlap coefficient 0.375 and combined coefficient 0.5 were used. In total there are 291 nodes (including hidden) and 763 edges (including hidden edges) in the visualization. There are more gene sets that I find to be associated with each other.
 
-```{r}
+```{r, fig.align='center', out.width='100%'}
 knitr::include_graphics("/Users/mac/Desktop/BCB420/A3_MetyuMelkonyan/images/publication.png")
 ```
 
-**Figure 6 Publication Ready Annotation Figure of Gene Enrichment visualization (7)**: By annotating and analyzing in terms of positivity and negativity the enrichment visualization showed up regulated gene sets to be collapsed in viral export RNA theme. Most of the down regulated are not associated with one another.
+**Figure 6 Publication Ready Annotation Figure of Gene Enrichment visualization (Shannon et al, 2003)**: By annotating and analyzing in terms of positivity and negativity the enrichment visualization showed up regulated gene sets to be collapsed in viral export RNA theme. Most of the down regulated are not associated with one another.
 
-```{r}
+```{r, fig.align='center', out.width='100%'}
 knitr::include_graphics("/Users/mac/Desktop/BCB420/A3_MetyuMelkonyan/images/parameters.png")
 ```
 
 **Figure 7 Annotation parameters**: The Default parameters are used due to small visualization and for proper observation. The annotations fit the model as there is strong evidence of the previous connections among cancer and viral genes indicated.
 
-```{r}
+```{r, fig.align='center', out.width='100%'}
 knitr::include_graphics("/Users/mac/Desktop/BCB420/A3_MetyuMelkonyan/images/cluster.png")
 ```
 
-**Figure 8 (Extra!)Publication ready figure of Gene Enrichment visualization**: Collapsed themes indicate that there is indeed relationship between abortive viral RNA gene sets and the export viral RNA gene set.
+**Figure 8 Publication ready figure of Gene Enrichment visualization**: Collapsed themes indicate that there is indeed relationship between abortive viral RNA gene sets and the export viral RNA gene set.
 
 Apoptotic gene sets are related to those of viral infection gene sets. This supports the presence of viral effects on pancreas cancer as well as many other cancer types. I created the publication-ready figure by using default parameters of MCL cluster 3 max word per label, minimum word occurrence of 1, and adjacent word bonus of 8 with WordCloud label algorithm. By collapsing the enrichment map I found 24 major themes on my map. I do not observe any novel pathways that appeared after total collapsing. 
 
-```{r}
+```{r,fig.align='center', out.width='100%'}
 knitr::include_graphics("/Users/mac/Desktop/BCB420/A3_MetyuMelkonyan/images/sapiens.png")
 
 ```
 
-**Figure 9 (Extra!) GeneMania gene enrichment pathway results. Most of the genes are virus related(8)**
+**Figure 9 (Extra!) GeneMania gene enrichment pathway results:** Most of the genes are virus related (Zuberi et al, 2013) The complete gene set GeneMania analysis to see if the genes in the respective pathways on the enrichment map are associated. I noted viral genes mostly. The yellow node is the cancer gene assocaited with viral genes (black)
 
-<br> The complete gene set GeneMania analysis to see if the genes in the respective pathways on the enrichment map are associated. I noted viral genes mostly. The noted node types
 
-```{r}
+```{r,fig.align='center', out.width='100%'}
  Genemania <- read.csv(file=file.path(getwd(),"data","table_genemania.csv"))
 knitr::kable(Genemania, type="html")
 ```
 
+
 ## Part 3: Post Analysis Summary
-```{r}
+```{r,fig.align='center', out.width='100%'}
 library(GSA)
 gmt_file <- file.path(getwd(),"data",
   "Human_GOBP_AllPathways_no_GO_iea_March_01_2021_symbol.gmt")
@@ -147,30 +148,31 @@ knitr::kable(head(genesets$geneset.names), type="html")
 
 ```
 
-```{r}
+```{r,fig.align='center', out.width='100%'}
 knitr::include_graphics("/Users/mac/Desktop/BCB420/A3_MetyuMelkonyan/images/p53.png")
 ```
 
-**Figure 10 (Extra!) Signature gene set p53 against all gene sets enriched:** Post analysis coefficient of 0.25 Mann-Whitney cut-off (Two-sided) was used. Post-analysis results also show that p63 is mainly involved in reactive oxygen species (ROS) metabolism. ROS are known to be tumour growth promoters which then cause EMT in different human tissues as well as trigger cancer of different type.
+**Figure 10 Signature gene set p53 against all gene sets enriched:** Post analysis coefficient of 0.25 Mann-Whitney cut-off (Two-sided) was used. Post-analysis results also show that p63 is mainly involved in reactive oxygen species (ROS) metabolism. ROS are known to be tumor growth promoters which then cause EMT in different human tissues as well as trigger cancer of different type. Portion of the previous figure was cropped, due to complications in the figure. The strong interaction with edges is apparent s
 
 
-<br> The post analysis includes the signature gene set from Bader gene sets (5)  of Human symbols of Drugbank approved gene set. p53 is an oncogene and it is involved in many pathways that are known to be causing different types of cancers. P53 is associated with viral pathways as well as some oncogenic pathways. Therefore, it is safe to assume that the viral effect on oncogenic genes for triggering tumours is indeed true. 
+<br> The post analysis includes the signature gene set from the Bader lab gene sets (Kucera et al, 2016)  of Human symbols of DrugBank approved gene set. p53 is an oncogene and it is involved in many pathways that are known to be causing different types of cancers. P53 is associated with viral pathways as well as some oncogenic pathways. Therefore, it is safe to assume that the viral effect on oncogenic genes for triggering tumors is indeed true. 
 
-```{r}
+```{r, fig.align='center', out.width='100%'}
 knitr::include_graphics("/Users/mac/Desktop/BCB420/A3_MetyuMelkonyan/images/NANS.png")
 ```
 
 
-**Figure 11 NANS (encircled red) Sialic Acid pathway of Homo sapiens(11)**
+**Figure 11 NANS (Extra!) Sialic Acid pathway of Homo sapiens(Munkley et al. ,2022):** Moreover, cancer-triggered apoptosis is one of the results of sialic acid. Neu5Ac 9-phosphate synthase (NANS)( encircled red) is an enzyme in sialic acid metabolism.
 
 
-The sialic acid pathway is one of the pathways that is known to be affecting tumor proliferation, cell growth, cell detachment and as a result metastasis. It is known to be highly expressed by the cancer cell. Moreover, cancer-triggered apoptosis is one of the results of sialic acid. Neu5Ac 9-phosphate synthase (NANS)( encircled red) is an enzyme in sialic acid metabolism.NANS' role in sialic acid pathways on the figure. Also, glycolipid-bound sialic acids are highly found in cancer cells. Finally, by having high expression levels and visualized on the pathway analysis NANS has the potential to be an oncogene. The role of sialic acid differs as there is an interaction between cancer genes and the viral genes, I do hypothesize that cancer causing viruses are an important factor in high sialic acid levels in pancreas cancer.
+The sialic acid pathway is one of the pathways that is known to be affecting tumor proliferation, cell growth, cell detachment and as a result metastasis. It is known to be highly expressed by the cancer cell. NANS' role in sialic acid pathways on the figure. Also, glycolipid-bound sialic acids are highly found in cancer cells. Finally, by having high expression levels and visualized on the pathway analysis NANS has the potential to be an oncogene. The role of sialic acid differs as there is an interaction between cancer genes and the viral genes, I do hypothesize that cancer causing viruses are an important factor in high sialic acid levels in pancreas cancer.
 
-```{r}
+```{r, fig.align='center', out.width='100%'}
 knitr::include_graphics("/Users/mac/Desktop/BCB420/A3_MetyuMelkonyan/images/sialicacid.jpg")
 ```
 
-**Figure 12 Oncogenic role of Sialic acid Metabolism (10)**
+
+**Figure 12 Oncogenic rosle of Sialic acid Metabolism (Zhou et al, 2020):** The figure capture hallmark of a bunch of other pathways containing sialic acid.
 
 ## Part 4: Interpretation and detailed view of results
 
@@ -180,19 +182,18 @@ knitr::include_graphics("/Users/mac/Desktop/BCB420/A3_MetyuMelkonyan/images/sial
 
 2.Can you find evidence, i.e. publications, to support some of the results that you see. How does this evidence support your result ?
   
-(9) discusses p53 manipulation by oncogenic viruses and shows a clear picture of possible non-oncogenic viruses. my analysis results showed clear indications of HIV, E1b(Ebstein Barr virus) effect on cell apoptosis. Also, cellular degradation pathways are partially visualized on my enrichment map. They are also associated with viral metabolic activity such as HIV (shown on the degradation side)(9)
-Viral activity is then assocaited with sialic acid as this paper discusses and mentions the virus effect on cancer (12)
+(Kamiza et al, 2022) discusses p53 manipulation by oncogenic viruses and shows a clear picture of possible non-oncogenic viruses. my analysis results showed clear indications of HIV, E1b(Ebstein Barr virus) effect on cell apoptosis. Also, cellular degradation pathways are partially visualized on my enrichment map. They are also associated with viral metabolic activity such as HIV (shown on the degradation side)(Munkley et al, 2019) Viral activity is then associated with sialic acid as this paper discusses and mentions the virus effect on cancer. In conclusion my hypothesis is strengthened by the findings that the authors findings. This paves a path for further research in finding relationship of viral genes specific to the pancreas or liver and the 
 
-#### Conclusion
+#### Further Clarification
 
 In the third part of the assignment the post-analysis of the GSEA results allowed to see the direct interaction between different viral cancerous genes. This paves a path for further research in viral effect on the pancreas cancer, by strengthening the conclusion that the authors made. The results from g:Profile and the GSEA correlate in a way that both of these analysis do have similar numbers of genes lower than 1% p-value. This makes sense because both of these analysis indicate the conclusion of hidden viral genes that the author did not show in their analysis.
 
-```{r}
+```{r, fig.align='center', out.width='100%'}
 knitr::include_graphics("/Users/mac/Desktop/BCB420/A3_MetyuMelkonyan/images/cancer.jpeg")
 ```
 
-**Figure 13: Oncogenic role of Sialic acid Metabolism(9)**
 
+**Figure 13: Oncogenic role of Sialic acid Metabolism(Munkley et al, 2022) :** Hallmark of apoptosis, cell cycle and transcription and  hallmarks of p53 stability indicate proposed mechanisms and the prospective viruses having genes assocaited with the mechanisms
 
 
 ## Reference
