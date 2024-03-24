@@ -4,7 +4,7 @@ Repository for BCB420 Winter-University of Toronto-2023
 <br>
 ### About Me
 <br>
-I am a fourth-year Cell System's and Molecular Biology Specialist student.
+I am Cell System's and Molecular Biology Specialist graduate.
 
 [Preview of the Page](https://bcb420-2023.github.io/Metyu_Melkonyan/)
 
