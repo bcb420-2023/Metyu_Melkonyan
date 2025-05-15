@@ -1,4 +1,4 @@
-# Metyu Melkonyan
+# Matthew Melkonyan
 
 Repository for BCB420 Winter-University of Toronto-2023
 <br>
